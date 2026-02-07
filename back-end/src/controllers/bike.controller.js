@@ -24,11 +24,35 @@ export const createBike = async (req, res) => {
 };
 
 /**
- * Obtener todas las bicicletas
+ * Obtener todas las bicicletas con filtros
  */
 export const getBikes = async (req, res) => {
   try {
-    const bikes = await Bike.find()
+    const { brand, sold, minPrice, maxPrice } = req.query;
+
+    const filters = {};
+
+    if (brand) {
+      filters.brand = brand;
+    }
+
+    if (sold !== undefined) {
+      filters.sold = sold === 'true';
+    }
+
+    if (minPrice || maxPrice) {
+      filters.price = {};
+
+      if (minPrice) {
+        filters.price.$gte = Number(minPrice);
+      }
+
+      if (maxPrice) {
+        filters.price.$lte = Number(maxPrice);
+      }
+    }
+
+    const bikes = await Bike.find(filters)
       .populate('owner', 'email')
       .sort({ createdAt: -1 });
 
