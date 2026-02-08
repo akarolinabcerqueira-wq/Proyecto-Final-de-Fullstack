@@ -199,3 +199,20 @@ export const markAsSold = async (req, res) => {
     });
   }
 };
+
+/**
+ * Obtener bicicletas del usuario logueado
+ */
+export const getMyBikes = async (req, res) => {
+  try {
+    const bikes = await Bike.find({ owner: req.user._id })
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(bikes);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error al obtener tus bicicletas'
+    });
+  }
+};
+
