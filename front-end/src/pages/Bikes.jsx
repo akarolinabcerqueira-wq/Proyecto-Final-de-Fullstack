@@ -34,6 +34,11 @@ const Bikes = () => {
           <BikeCard key={bike._id} bike={bike} />
         ))}
       </div>
+      <div className="bike-grid">
+  {bikes.map((bike) => (
+    <BikeCard key={bike._id} bike={bike} />
+  ))}
+</div>
     </section>
   );
 };

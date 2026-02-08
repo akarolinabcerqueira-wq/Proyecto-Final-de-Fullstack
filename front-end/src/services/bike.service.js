@@ -33,7 +33,7 @@ export const getBikeByIdRequest = async (id) => {
 ===================== */
 
 export const getMyBikesRequest = async (token) => {
-  const response = await fetch(`${API_URL}/bikes/my`, {
+  const response = await fetch(`${API_URL}/bikes/mine`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -47,7 +47,6 @@ export const getMyBikesRequest = async (token) => {
 
   return data;
 };
-
 export const deleteBikeRequest = async (id, token) => {
   const response = await fetch(`${API_URL}/bikes/${id}`, {
     method: 'DELETE',
@@ -72,4 +71,41 @@ export const markBikeAsSoldRequest = async (id, token) => {
   if (!response.ok) {
     throw new Error('Error al marcar como vendida');
   }
+};
+export const createBikeRequest = async (bikeData, token) => {
+  const response = await fetch(`${API_URL}/bikes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(bikeData)
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Error al crear bicicleta');
+  }
+
+  return data;
+};
+
+export const updateBikeRequest = async (id, bikeData, token) => {
+  const response = await fetch(`${API_URL}/bikes/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(bikeData)
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Error al actualizar bicicleta');
+  }
+
+  return data;
 };

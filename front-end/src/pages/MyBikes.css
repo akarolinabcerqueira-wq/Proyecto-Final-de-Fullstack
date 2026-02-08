@@ -1,0 +1,19 @@
+.bike-item {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+
+.bike-item:last-child {
+  border-bottom: none;
+}
+
+.bike-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.sold {
+  color: red;
+  font-weight: bold;
+}

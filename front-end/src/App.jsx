@@ -1,14 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Bikes from './pages/Bikes';
-import BikeDetail from './pages/BikeDetail';
-import MyBikes from './pages/MyBikes';
-import NewBike from './pages/NewBike';
-
-import Navbar from './components/Navbar';
-import ProtectedRoute from './components/ProtectedRoute';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Bikes from "./pages/Bikes";
+import BikeDetail from "./pages/BikeDetail";
+import MyBikes from "./pages/MyBikes";
+import NewBike from "./pages/NewBike";
+import EditBike from "./pages/EditBike";
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -20,6 +20,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/bikes" element={<Bikes />} />
         <Route path="/bikes/:id" element={<BikeDetail />} />
+        <Route
+          path="/edit-bike/:id"
+          element={
+            <ProtectedRoute>
+              <EditBike />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/my-bikes"
