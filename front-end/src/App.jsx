@@ -9,6 +9,8 @@ import NewBike from "./pages/NewBike";
 import EditBike from "./pages/EditBike";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Register from './pages/Register';
+
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+
+      <Route path="/register" element={<Register />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/bikes" element={<Bikes />} />
         <Route path="/bikes/:id" element={<BikeDetail />} />

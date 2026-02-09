@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginRequest } from '../services/auth.service';
 import useAuth from '../hooks/useAuth';
 
@@ -49,6 +49,8 @@ const Login = () => {
 
         {error && <p>{error}</p>}
       </form>
+
+      <Link to="/register">Crear cuenta</Link>
     </section>
   );
 };
