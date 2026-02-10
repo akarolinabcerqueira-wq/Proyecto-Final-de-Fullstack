@@ -49,25 +49,31 @@ const MyBikes = () => {
       {error && <p>{error}</p>}
 
       {bikes.length === 0 && <p>No tienes bicicletas publicadas</p>}
-      <article key={bike._id} className="bike-item">
-        <h3>{bike.title}</h3>
-        <p>{bike.price} €</p>
-        <p className={bike.sold ? "sold" : ""}>
-          Estado: {bike.sold ? "Vendida" : "Disponible"}
-        </p>
 
-        <div className="bike-actions">
-          {!bike.sold && (
-            <button onClick={() => handleSold(bike._id)}>
-              Marcar como vendida
+      {bikes.map((bike) => (
+        <article key={bike._id} className="bike-item">
+          <h3>{bike.title}</h3>
+          <p>{bike.price} €</p>
+
+          <p className={bike.sold ? "sold" : ""}>
+            Estado: {bike.sold ? "Vendida" : "Disponible"}
+          </p>
+
+          <div className="bike-actions">
+            {!bike.sold && (
+              <button onClick={() => handleSold(bike._id)}>
+                Marcar como vendida
+              </button>
+            )}
+
+            <Link to={`/edit-bike/${bike._id}`}>Editar</Link>
+
+            <button onClick={() => handleDelete(bike._id)}>
+              Eliminar
             </button>
-          )}
-
-          <Link to={`/edit-bike/${bike._id}`}>Editar</Link>
-
-          <button onClick={() => handleDelete(bike._id)}>Eliminar</button>
-        </div>
-      </article>
+          </div>
+        </article>
+      ))}
     </section>
   );
 };

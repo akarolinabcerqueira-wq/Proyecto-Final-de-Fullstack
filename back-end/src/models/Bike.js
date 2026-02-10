@@ -26,14 +26,7 @@ const bikeSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    image: {
-      type: String,
-      required: true
-    },
-    sold: {
-      type: Boolean,
-      default: false
-    },
+ images: [{ type: String, required: true }],
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',

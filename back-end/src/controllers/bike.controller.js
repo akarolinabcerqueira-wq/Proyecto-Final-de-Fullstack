@@ -1,13 +1,26 @@
 import Bike from '../models/Bike.js';
+import cloudinary from '../config/cloudinary.js';
+
 
 /**
  * Crear una nueva bicicleta
  */
 export const createBike = async (req, res) => {
   try {
+    // 1️⃣ Subir imágenes a Cloudinary
+    const uploadedImages = [];
+    if (req.files) {
+      for (const file of req.files) {
+        const result = await cloudinary.uploader.upload(file.path);
+        uploadedImages.push(result.secure_url);
+      }
+    }
+
+    // Crear bicicleta con datos del form + imágenes + owner
     const bikeData = {
       ...req.body,
-      owner: req.user._id
+      owner: req.user._id,
+      images: uploadedImages
     };
 
     const bike = await Bike.create(bikeData);
@@ -17,12 +30,12 @@ export const createBike = async (req, res) => {
       bike
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
-      message: 'Error al crear la bicicleta'
+      message: error.message
     });
   }
 };
-
 /**
  * Obtener todas las bicicletas con filtros
  */

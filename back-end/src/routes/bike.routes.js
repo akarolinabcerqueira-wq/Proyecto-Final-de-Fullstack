@@ -9,6 +9,11 @@ import {
   getMyBikes
 } from '../controllers/bike.controller.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
+import multer from 'multer';
+import cloudinary from '../config/cloudinary.js';
+
+const storage = multer.diskStorage({});
+const upload = multer({ storage });
 
 const router = express.Router();
 
@@ -27,7 +32,7 @@ router.get('/:id', getBikeById);
 /**
  * Rutas protegidas
  */
-router.post('/', authMiddleware, createBike);
+router.post('/', authMiddleware, upload.array('images'), createBike);
 router.put('/:id', authMiddleware, updateBike);
 router.delete('/:id', authMiddleware, deleteBike);
 
