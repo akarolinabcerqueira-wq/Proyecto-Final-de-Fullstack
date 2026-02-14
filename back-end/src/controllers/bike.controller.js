@@ -179,7 +179,7 @@ export const deleteBike = async (req, res) => {
 /**
  * Marcar bicicleta como vendida
  */
-export const markAsSold = async (req, res) => {
+export const toggleSold = async (req, res) => {
   try {
     const bike = await Bike.findById(req.params.id);
 
@@ -195,23 +195,28 @@ export const markAsSold = async (req, res) => {
       req.user.role !== 'admin'
     ) {
       return res.status(403).json({
-        message: 'No tienes permisos para marcar esta bicicleta como vendida'
+        message: 'No tienes permisos'
       });
     }
 
-    bike.sold = true;
+    //TOGGLE
+    bike.sold = !bike.sold;
+
     await bike.save();
 
     res.status(200).json({
-      message: 'Bicicleta marcada como vendida',
+      message: 'Estado actualizado correctamente',
       bike
     });
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({
-      message: 'Error al marcar la bicicleta como vendida'
+      message: 'Error al actualizar el estado'
     });
   }
 };
+
 
 /**
  * Obtener bicicletas del usuario logueado

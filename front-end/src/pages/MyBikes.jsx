@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 import {
   getMyBikesRequest,
   deleteBikeRequest,
-  markBikeAsSoldRequest,
+  toggleSoldRequest
 } from "../services/bike.service";
 import { Link } from "react-router-dom";
 import "./MyBikes.css";
@@ -33,14 +33,23 @@ const MyBikes = () => {
     loadBikes();
   };
 
-  const handleSold = async (id) => {
-    try {
-      await markBikeAsSoldRequest(id, token);
-      loadBikes();
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+const handleToggleSold = async (id) => {
+  setBikes(prev =>
+    prev.map(bike =>
+      bike._id === id ? { ...bike, sold: !bike.sold } : bike
+    )
+  );
+
+  try {
+   
+    await toggleSoldRequest(id, token);
+  } catch (err) {
+    alert(err.message);
+    loadBikes();
+  }
+};
+
+
 
   return (
     <section>
@@ -54,17 +63,16 @@ const MyBikes = () => {
         <article key={bike._id} className="bike-item">
           <h3>{bike.title}</h3>
           <p>{bike.price} €</p>
-
+{bike.images?.length > 0 && ( <img src={bike.images[0]} alt={bike.title} className="bike-image" /> )}
           <p className={bike.sold ? "sold" : ""}>
             Estado: {bike.sold ? "Vendida" : "Disponible"}
           </p>
 
           <div className="bike-actions">
-            {!bike.sold && (
-              <button onClick={() => handleSold(bike._id)}>
-                Marcar como vendida
-              </button>
-            )}
+        <button onClick={() => handleToggleSold(bike._id)}>
+  {bike.sold ? "Marcar como disponible" : "Marcar como vendida"}
+</button>
+
 
             <Link to={`/edit-bike/${bike._id}`}>Editar</Link>
 

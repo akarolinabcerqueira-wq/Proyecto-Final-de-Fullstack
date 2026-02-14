@@ -5,7 +5,7 @@ import {
   getBikeById,
   updateBike,
   deleteBike,
-  markAsSold,
+  toggleSold,
   getMyBikes
 } from '../controllers/bike.controller.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
@@ -39,6 +39,7 @@ router.delete('/:id', authMiddleware, deleteBike);
 /**
  * Marcar bicicleta como vendida
  */
-router.patch('/:id/sold', authMiddleware, markAsSold);
+router.patch('/:id/toggle-sold', authMiddleware, toggleSold);
+
 
 export default router;

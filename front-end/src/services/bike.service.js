@@ -60,26 +60,35 @@ export const deleteBikeRequest = async (id, token) => {
   }
 };
 
-export const markBikeAsSoldRequest = async (id, token) => {
-  const response = await fetch(`${API_URL}/bikes/${id}/sold`, {
-    method: 'PATCH',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+export const toggleSoldRequest = async (id, token) => {
 
-  if (!response.ok) {
-    throw new Error('Error al marcar como vendida');
-  }
+  const res = await fetch(
+    `${API_URL}/bikes/${id}/toggle-sold`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) throw new Error(data.message);
+
+  return data;
 };
-export const createBikeRequest = async (bikeData, token) => {
+
+
+
+export const createBikeRequest = async (formData, token) => {
   const response = await fetch(`${API_URL}/bikes`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
+
     },
-    body: JSON.stringify(bikeData)
+    body: formData
   });
 
   const data = await response.json();
@@ -90,6 +99,7 @@ export const createBikeRequest = async (bikeData, token) => {
 
   return data;
 };
+
 
 export const updateBikeRequest = async (id, bikeData, token) => {
   const response = await fetch(`${API_URL}/bikes/${id}`, {

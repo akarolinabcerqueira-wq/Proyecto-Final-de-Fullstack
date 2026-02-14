@@ -20,16 +20,30 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
   const handleFilesChange = (e) => {
     setFormData({
       ...formData,
-      images: Array.from(e.target.files) // convert FileList to array
+      images: Array.from(e.target.files) // Convertir FileList a array
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const dataToSubmit = { ...formData };
+    // 🔥 Crear FormData REAL para enviar archivos
+    const fd = new FormData();
 
-    onSubmit(dataToSubmit);
+    // Campos de texto
+    fd.append("title", formData.title);
+    fd.append("brand", formData.brand);
+    fd.append("model", formData.model);
+    fd.append("price", formData.price);
+    fd.append("description", formData.description);
+
+    // Archivos (muy importante)
+    formData.images.forEach((file) => {
+      fd.append("images", file);
+    });
+
+    // Enviar al componente padre
+    onSubmit(fd);
   };
 
   return (
@@ -75,7 +89,7 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
         required
       />
 
-      {/* Multiple file upload */}
+      {/* Subida de múltiples imágenes */}
       <input
         type="file"
         name="images"
@@ -84,7 +98,7 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
         accept="image/*"
       />
 
-      {/* Preview selected images */}
+      {/* Previsualización */}
       <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
         {formData.images.map((file, idx) => (
           <img
