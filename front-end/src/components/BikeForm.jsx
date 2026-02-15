@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const BikeForm = ({ initialData = {}, onSubmit }) => {
   const [formData, setFormData] = useState({
-    title: initialData.title || '',
-    brand: initialData.brand || '',
-    model: initialData.model || '',
-    price: initialData.price || '',
-    description: initialData.description || '',
-    images: initialData.images || [] 
+    title: initialData.title || "",
+    brand: initialData.brand || "",
+    model: initialData.model || "",
+    price: initialData.price || "",
+    description: initialData.description || "",
+    images: initialData.images || [], // Can be URLs or File objects
+    sold: initialData.sold || false
   });
 
   const handleChange = (e) => {
@@ -18,31 +19,34 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
   };
 
   const handleFilesChange = (e) => {
+    const newFiles = Array.from(e.target.files);
+
     setFormData({
       ...formData,
-      images: Array.from(e.target.files) // Convertir FileList a array
+      images: [...newFiles] // Replace old images with new ones
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // 🔥 Crear FormData REAL para enviar archivos
     const fd = new FormData();
 
-    // Campos de texto
     fd.append("title", formData.title);
     fd.append("brand", formData.brand);
     fd.append("model", formData.model);
     fd.append("price", formData.price);
     fd.append("description", formData.description);
+    fd.append("sold", formData.sold);
 
-    // Archivos (muy importante)
-    formData.images.forEach((file) => {
-      fd.append("images", file);
+    // IMPORTANT:
+    // Only append File objects, not URLs
+    formData.images.forEach((img) => {
+      if (img instanceof File) {
+        fd.append("images", img);
+      }
     });
 
-    // Enviar al componente padre
     onSubmit(fd);
   };
 
@@ -89,7 +93,7 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
         required
       />
 
-      {/* Subida de múltiples imágenes */}
+      {/* Upload new images */}
       <input
         type="file"
         name="images"
@@ -98,21 +102,41 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
         accept="image/*"
       />
 
-      {/* Previsualización */}
-      <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
-        {formData.images.map((file, idx) => (
-          <img
-            key={idx}
-            src={URL.createObjectURL(file)}
-            alt={`preview-${idx}`}
-            width={100}
-            height={100}
-            style={{ objectFit: 'cover', borderRadius: '5px' }}
-          />
-        ))}
+      {/* Preview */}
+      <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+        {formData.images.map((img, idx) => {
+          const isFile = img instanceof File;
+          const src = isFile ? URL.createObjectURL(img) : img;
+
+          return (
+            <img
+              key={idx}
+              src={src}
+              alt={`preview-${idx}`}
+              width={100}
+              height={100}
+              style={{ objectFit: "cover", borderRadius: "5px" }}
+            />
+          );
+        })}
       </div>
 
-      <button type="submit" style={{ marginTop: '15px' }}>Guardar</button>
+      {/* Sold checkbox */}
+      <label style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "10px" }}>
+        <input
+          type="checkbox"
+          name="sold"
+          checked={formData.sold}
+          onChange={(e) =>
+            setFormData({ ...formData, sold: e.target.checked })
+          }
+        />
+        Vendida
+      </label>
+
+      <button type="submit" style={{ marginTop: "15px" }}>
+        Guardar
+      </button>
     </form>
   );
 };

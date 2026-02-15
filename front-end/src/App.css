@@ -2,13 +2,13 @@ body {
   margin: 0;
   font-family: system-ui, Arial, sans-serif;
   background: #f5f5f5;
-  color: #333;
+  color: #070338;
 }
 
 main {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1rem;
+
 }
 
 section {

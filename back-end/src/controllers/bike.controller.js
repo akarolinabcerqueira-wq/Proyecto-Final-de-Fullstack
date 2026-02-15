@@ -49,9 +49,7 @@ export const getBikes = async (req, res) => {
       filters.brand = brand;
     }
 
-    if (sold !== undefined) {
-      filters.sold = sold === 'true';
-    }
+ if (sold === 'true' || sold === 'false') { filters.sold = sold === 'true'; }
 
     if (minPrice || maxPrice) {
       filters.price = {};
@@ -106,40 +104,37 @@ export const getBikeById = async (req, res) => {
  */
 export const updateBike = async (req, res) => {
   try {
-    const bike = await Bike.findById(req.params.id);
+    const updateData = { ...req.body };
 
-    if (!bike) {
-      return res.status(404).json({
-        message: 'Bicicleta no encontrada'
-      });
+    // Convert sold from string to boolean
+    if (req.body.sold !== undefined) {
+      updateData.sold = req.body.sold === "true";
     }
 
-    // Comprobar permisos
-    if (
-      bike.owner.toString() !== req.user._id.toString() &&
-      req.user.role !== 'admin'
-    ) {
-      return res.status(403).json({
-        message: 'No tienes permisos para editar esta bicicleta'
-      });
+    // Handle new images
+    if (req.files && req.files.length > 0) {
+      updateData.images = req.files.map((file) => file.path);
     }
 
     const updatedBike = await Bike.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateData,
       { new: true }
     );
 
     res.status(200).json({
-      message: 'Bicicleta actualizada correctamente',
+      message: "Bicicleta actualizada correctamente",
       bike: updatedBike
     });
+
   } catch (error) {
     res.status(500).json({
-      message: 'Error al actualizar la bicicleta'
+      message: "Error al actualizar la bicicleta"
     });
   }
 };
+
+
 
 /**
  * Eliminar bicicleta (solo owner o admin)

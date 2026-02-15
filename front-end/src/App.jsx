@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Inicio";
 import Login from "./pages/Login";
-import Bikes from "./pages/Bikes";
 import BikeDetail from "./pages/BikeDetail";
 import MyBikes from "./pages/MyBikes";
 import NewBike from "./pages/NewBike";
@@ -23,7 +22,7 @@ function App() {
       <Route path="/register" element={<Register />} />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/bikes" element={<Bikes />} />
+      
         <Route path="/bikes/:id" element={<BikeDetail />} />
         <Route
           path="/edit-bike/:id"

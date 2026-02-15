@@ -1,25 +1,33 @@
-import { Link } from 'react-router-dom';
-import './BikeCard.css';
+import "./BikeCard.css";
+import { Link } from "react-router-dom";
 
-const BikeCard = ({ bike }) => {
+export default function BikeCard({ bike }) {
   return (
-    <article className="bike-card">
-      {/* Mostrar la primera imagen del array, o un placeholder si no hay */}
-      <img
-        src={bike.images && bike.images.length > 0 ? bike.images[0] : '/placeholder.png'}
-        alt={bike.title}
-      />
+    <div className="bike-card">
+      
+      <div className="bike-image-wrapper">
+        <img
+          src={bike.images[0]}
+          alt={bike.model}
+          className="bike-image"
+        />
 
-      <h3>{bike.title}</h3>
-      <p><strong>Marca:</strong> {bike.brand}</p>
-      <p>{bike.description}</p>
-      <p><strong>Precio:</strong> {bike.price} €</p>
+        {/* BADGE MUST BE HERE */}
+        <span className={`status-badge ${bike.sold ? "sold" : "available"}`}>
+          {bike.sold ? "Vendida" : "Disponible"}
+        </span>
+      </div>
 
-      {bike.sold && <span className="badge">Vendida</span>}
+      <div className="bike-info">
+        <h3 className="bike-title">{bike.brand} {bike.model}</h3>
+        <p className="bike-price">€{bike.price}</p>
 
-      <Link to={`/bikes/${bike._id}`}>Ver detalle</Link>
-    </article>
+        <div className="bike-actions">
+          <Link to={`/bikes/${bike._id}`} className="btn-view">
+            Ver detalles
+          </Link>
+        </div>
+      </div>
+    </div>
   );
-};
-
-export default BikeCard;
+}

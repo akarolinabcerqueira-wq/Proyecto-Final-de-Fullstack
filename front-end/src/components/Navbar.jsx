@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav>
       <Link to="/">Inicio</Link>
-      <Link to="/bikes">Bicicletas</Link>
+     
 
       {isAuthenticated ? (
         <>
