@@ -1,19 +1,185 @@
-.bike-item {
-  border-bottom: 1px solid #ddd;
-  padding: 1rem 0;
+.my-bikes-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 40px;
 }
 
-.bike-item:last-child {
-  border-bottom: none;
+/* GRID */
+.my-bikes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 40px;
 }
 
-.bike-actions {
+/* CARD */
+.my-bike-card {
+  background: #0d0a2b;
+  border-radius: 20px;
+  border: 1px solid #1a164047;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.my-bike-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(4, 0, 255, 0.076);
+}
+
+/* IMAGE */
+.my-bike-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #1a1640;
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+}
+
+.my-bike-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.my-bike-card:hover .my-bike-image {
+  transform: scale(1.08);
+}
+
+.no-image {
+  width: 100%;
+  height: 100%;
+  background: #1a1640;
+  color: #aaa;
   display: flex;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.sold {
-  color: red;
-  font-weight: bold;
+/* STATUS BADGE */
+.status-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #070338;
+  backdrop-filter: blur(4px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 5;
+}
+
+.status-badge.available {
+  background: rgba(255, 190, 147, 0.9);
+}
+
+.status-badge.sold {
+  background: rgba(151, 151, 151, 0.85);
+}
+
+/* INFO */
+.my-bike-info {
+  padding: 22px;
+}
+
+.my-bike-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.my-bike-price {
+  color: #ff6600;
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+/* ACTION BUTTONS */
+/* ACTION BUTTONS */
+.my-bike-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.my-bike-actions .row {
+  display: flex;
+  gap: 12px;
+}
+
+.my-bike-actions .row > * {
+  flex: 1;
+}
+
+.full {
+  width: 100%;
+}
+
+/* ORANGE BUTTON (EDIT) */
+.btn-orange {
+  background: #ff6600;
+  color: #070338;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: 0.2s ease;
+  box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);
+  font-family: inherit;
+  text-decoration: none;  display: inline-block; 
+}
+
+.btn-orange:hover {
+  background: #ff7f2a;
+  box-shadow: 0 0 18px rgba(255, 102, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+/* DARK BUTTON (TOGGLE SOLD) */
+.btn-dark {
+  background: #1a1640;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid rgba(255, 102, 0, 0.4);
+  text-align: center;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+.btn-dark:hover {
+  border-color: #ff6600;
+  box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* RED BUTTON (DELETE) */
+.btn-danger {
+  background: #d9534f;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: #c9302c;
+  box-shadow: 0 0 12px rgba(217, 83, 79, 0.5);
+  transform: translateY(-2px);
 }

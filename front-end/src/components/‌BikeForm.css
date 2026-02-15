@@ -1,58 +1,23 @@
-.bike-form-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  max-width: 1100px;
+/* --- PAGE CONTAINER --- */
+.bike-form-container {
+  max-width: 900px;
   margin: 0 auto;
-  padding: 2rem 2rem 0;
+  padding: 2rem;
 }
 
-
-/* Right column matches left column height */
-.bike-form-right {
-  display: flex;
-  align-items: stretch;
-}
-
-/* Image matches ONLY the form height */
-.bike-form-image {
-  width: 100%;
-  height: 100%;
-  /* FIXED */
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(7, 3, 56, 0.15);
-}
-
-/* PREVIEW GRID BELOW BOTH COLUMNS */
-.bike-form-preview {
-  max-width: 1100px;
-  margin: 2rem auto 0;
-  padding: 0 2rem;
-}
-
-/* Mobile: hide image */
-@media (max-width: 900px) {
-  .bike-form-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .bike-form-right {
-    display: none;
-  }
-
-  .bike-form-preview {
-    grid-column: 1;
-  }
-}
-
-/* --- INPUTS & SELECTS (UNIFIED STYLE) --- */
+/* --- FORM --- */
 .bike-form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(7, 3, 56, 0.15);
+  color: #070338;
 }
 
+/* Inputs */
 .bike-form input,
 .bike-form select,
 .bike-form textarea {
@@ -63,8 +28,7 @@
   font-size: 1rem;
   background: #fafafa;
   color: #070338;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .bike-form input:focus,
@@ -76,44 +40,7 @@
   outline: none;
 }
 
-/* --- TEXTAREA --- */
-.bike-form textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-/* --- FILE INPUT --- */
-.bike-form input[type="file"] {
-  padding: 0.5rem 0;
-  background: none;
-  border: none;
-}
-
-/* --- IMAGE PREVIEW GRID --- */
-.preview-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.preview-grid img {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 2px solid #e0e0e0;
-  box-shadow: 0 2px 6px rgba(7, 3, 56, 0.15);
-}
-
-/* --- CHECKBOX ROW --- */
-.checkbox-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-}
-
-/* --- SUBMIT BUTTON --- */
+/* Button */
 .bike-form button {
   padding: 0.9rem 1.2rem;
   background: #ff6600;
@@ -123,13 +50,56 @@
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s;
 }
 
 .bike-form button:hover {
   background: #ff7f2a;
 }
 
-.bike-form button:active {
-  transform: scale(0.98);
+/* --- IMAGE GALLERY --- */
+.image-gallery {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(7, 3, 56, 0.15);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Delete button */
+.delete-image-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.delete-image-btn:hover {
+  background: rgba(255, 0, 0, 0.8);
 }

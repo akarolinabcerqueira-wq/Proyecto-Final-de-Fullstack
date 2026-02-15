@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import BikeForm from '../components/BikeForm';
-import useAuth from '../hooks/useAuth';
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import BikeForm from "../components/BikeForm";
+import useAuth from "../hooks/useAuth";
 import {
   getBikeByIdRequest,
-  updateBikeRequest
-} from '../services/bike.service';
+  updateBikeRequest,
+} from "../services/bike.service";
 import Footer from "../components/Footer";
-
 
 const EditBike = () => {
   const { id } = useParams();
@@ -24,10 +23,10 @@ const EditBike = () => {
     loadBike();
   }, [id]);
 
-  const handleUpdate = async (bikeData) => {
+  const handleUpdate = async (formData) => {
     try {
-      await updateBikeRequest(id, bikeData, token);
-      navigate('/my-bikes');
+      await updateBikeRequest(id, formData, token);
+      navigate("/my-bikes");
     } catch (error) {
       alert(error.message);
     }
@@ -39,7 +38,7 @@ const EditBike = () => {
     <section>
       <h1>Editar bicicleta</h1>
       <BikeForm initialData={bike} onSubmit={handleUpdate} />
-        <Footer /> 
+      <Footer />
     </section>
   );
 };

@@ -1,6 +1,5 @@
-import Bike from '../models/Bike.js';
-import cloudinary from '../config/cloudinary.js';
-
+import Bike from "../models/Bike.js";
+import cloudinary from "../config/cloudinary.js";
 
 /**
  * Crear una nueva bicicleta
@@ -20,19 +19,19 @@ export const createBike = async (req, res) => {
     const bikeData = {
       ...req.body,
       owner: req.user._id,
-      images: uploadedImages
+      images: uploadedImages,
     };
 
     const bike = await Bike.create(bikeData);
 
     res.status(201).json({
-      message: 'Bicicleta creada correctamente',
-      bike
+      message: "Bicicleta creada correctamente",
+      bike,
     });
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
@@ -49,8 +48,8 @@ export const getBikes = async (req, res) => {
 
     if (category) filters.category = category; // ADD THIS
 
-    if (sold === 'true' || sold === 'false') {
-      filters.sold = sold === 'true';
+    if (sold === "true" || sold === "false") {
+      filters.sold = sold === "true";
     }
 
     if (minPrice || maxPrice) {
@@ -60,36 +59,32 @@ export const getBikes = async (req, res) => {
     }
 
     const bikes = await Bike.find(filters)
-      .populate('owner', 'email')
+      .populate("owner", "email")
       .sort({ createdAt: -1 });
 
     res.status(200).json(bikes);
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener las bicicletas' });
+    res.status(500).json({ message: "Error al obtener las bicicletas" });
   }
 };
-
 
 /**
  * Obtener una bicicleta por ID
  */
 export const getBikeById = async (req, res) => {
   try {
-    const bike = await Bike.findById(req.params.id).populate(
-      'owner',
-      'email'
-    );
+    const bike = await Bike.findById(req.params.id).populate("owner", "email");
 
     if (!bike) {
       return res.status(404).json({
-        message: 'Bicicleta no encontrada'
+        message: "Bicicleta no encontrada",
       });
     }
 
     res.status(200).json(bike);
   } catch (error) {
     res.status(500).json({
-      message: 'Error al obtener la bicicleta'
+      message: "Error al obtener la bicicleta",
     });
   }
 };
@@ -99,36 +94,50 @@ export const getBikeById = async (req, res) => {
  */
 export const updateBike = async (req, res) => {
   try {
-    const updateData = { ...req.body };
+    const { id } = req.params;
 
-    // Convert sold from string to boolean
-    if (req.body.sold !== undefined) {
-      updateData.sold = req.body.sold === "true";
+    // Existing images (after user deletion)
+    let existingImages = req.body.existingImages || [];
+
+    if (typeof existingImages === "string") {
+      existingImages = [existingImages];
     }
 
-    // Handle new images
+    // New uploaded images
+    let newImages = [];
+
     if (req.files && req.files.length > 0) {
-      updateData.images = req.files.map((file) => file.path);
+      for (const file of req.files) {
+        const uploaded = await cloudinary.uploader.upload(file.path, {
+          folder: "bikes",
+        });
+        newImages.push(uploaded.secure_url);
+      }
     }
+
+    const finalImages = [...existingImages, ...newImages];
 
     const updatedBike = await Bike.findByIdAndUpdate(
-      req.params.id,
-      updateData,
+      id,
+      {
+        title: req.body.title,
+        category: req.body.category,
+        brand: req.body.brand,
+        model: req.body.model,
+        price: req.body.price,
+        description: req.body.description,
+        sold: req.body.sold === "true",
+        images: finalImages,
+      },
       { new: true }
     );
 
-    res.status(200).json({
-      message: "Bicicleta actualizada correctamente",
-      bike: updatedBike
-    });
-
+    res.json(updatedBike);
   } catch (error) {
-    res.status(500).json({
-      message: "Error al actualizar la bicicleta"
-    });
+    console.error(error);
+    res.status(500).json({ message: "Error updating bike" });
   }
 };
-
 
 
 /**
@@ -140,28 +149,28 @@ export const deleteBike = async (req, res) => {
 
     if (!bike) {
       return res.status(404).json({
-        message: 'Bicicleta no encontrada'
+        message: "Bicicleta no encontrada",
       });
     }
 
     // Comprobar permisos
     if (
       bike.owner.toString() !== req.user._id.toString() &&
-      req.user.role !== 'admin'
+      req.user.role !== "admin"
     ) {
       return res.status(403).json({
-        message: 'No tienes permisos para eliminar esta bicicleta'
+        message: "No tienes permisos para eliminar esta bicicleta",
       });
     }
 
     await bike.deleteOne();
 
     res.status(200).json({
-      message: 'Bicicleta eliminada correctamente'
+      message: "Bicicleta eliminada correctamente",
     });
   } catch (error) {
     res.status(500).json({
-      message: 'Error al eliminar la bicicleta'
+      message: "Error al eliminar la bicicleta",
     });
   }
 };
@@ -175,17 +184,17 @@ export const toggleSold = async (req, res) => {
 
     if (!bike) {
       return res.status(404).json({
-        message: 'Bicicleta no encontrada'
+        message: "Bicicleta no encontrada",
       });
     }
 
     // Solo owner o admin
     if (
       bike.owner.toString() !== req.user._id.toString() &&
-      req.user.role !== 'admin'
+      req.user.role !== "admin"
     ) {
       return res.status(403).json({
-        message: 'No tienes permisos'
+        message: "No tienes permisos",
       });
     }
 
@@ -195,32 +204,30 @@ export const toggleSold = async (req, res) => {
     await bike.save();
 
     res.status(200).json({
-      message: 'Estado actualizado correctamente',
-      bike
+      message: "Estado actualizado correctamente",
+      bike,
     });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: 'Error al actualizar el estado'
+      message: "Error al actualizar el estado",
     });
   }
 };
-
 
 /**
  * Obtener bicicletas del usuario logueado
  */
 export const getMyBikes = async (req, res) => {
   try {
-    const bikes = await Bike.find({ owner: req.user._id })
-      .sort({ createdAt: -1 });
+    const bikes = await Bike.find({ owner: req.user._id }).sort({
+      createdAt: -1,
+    });
 
     res.status(200).json(bikes);
   } catch (error) {
     res.status(500).json({
-      message: 'Error al obtener tus bicicletas'
+      message: "Error al obtener tus bicicletas",
     });
   }
 };
-

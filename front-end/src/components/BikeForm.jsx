@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./‌BikeForm.css";
 
-
 const brandOptions = {
   mountain: ["Trek", "Specialized", "Giant", "Cannondale", "Scott"],
   road: ["Canyon", "Bianchi", "Pinarello", "Colnago", "Wilier"],
@@ -42,12 +41,14 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
 
   const handleFilesChange = (e) => {
     const newFiles = Array.from(e.target.files);
-    setFormData({
-      ...formData,
-      images: [...newFiles],
-    });
+    setFormData({ ...formData, images: [...formData.images, ...newFiles] });
   };
-
+  const handleDeleteImage = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -71,8 +72,8 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
   };
 
   return (
-    <div className="bike-form-wrapper">
-      <div className="bike-form-left">
+    <div className="bike-form-container">
+      {/* FORM */}
       <form className="bike-form" onSubmit={handleSubmit}>
         <input
           name="title"
@@ -146,8 +147,6 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
           accept="image/*"
         />
 
-        
-
         {isEditing && (
           <label className="checkbox-row">
             <input
@@ -162,36 +161,31 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
           </label>
         )}
 
-        <button type="submit" style={{ marginTop: "15px" }}>
-          Guardar
-        </button>
+        <button type="submit">Guardar</button>
       </form>
-</div>
-<div className="bike-form-right">
-      <img
-        className="bike-form-image"
-        src="/images/form.jpg"
-        alt="Bike illustration"
-      /></div>
-      <div className="bike-form-preview">
-      <div className="preview-grid">
-          {formData.images.map((img, idx) => {
-            const isFile = img instanceof File;
-            const src = isFile ? URL.createObjectURL(img) : img;
 
-            return (
-              <img
-                key={idx}
-                src={src}
-                alt={`preview-${idx}`}
-                width={100}
-                height={100}
-                style={{ objectFit: "cover", borderRadius: "5px" }}
-              />
-            );
-          })}
-        </div>
-        </div>
+      {/* IMAGE GALLERY */}
+      <div className="image-gallery">
+        {" "}
+        {formData.images.map((img, idx) => {
+          const isFile = img instanceof File;
+          const src = isFile ? URL.createObjectURL(img) : img;
+          return (
+            <div className="gallery-item" key={idx}>
+              {" "}
+              <img src={src} alt={`preview-${idx}`} />{" "}
+              <button
+                type="button"
+                className="delete-image-btn"
+                onClick={() => handleDeleteImage(idx)}
+              >
+                {" "}
+                ✕{" "}
+              </button>{" "}
+            </div>
+          );
+        })}{" "}
+      </div>
     </div>
   );
 };
