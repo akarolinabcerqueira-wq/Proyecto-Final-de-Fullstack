@@ -1,0 +1,135 @@
+/* GLOBAL */
+.inicio-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #070338; /* deep blue */
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+/* HERO BANNER */
+.hero-banner {
+  width: 100%;
+  height: 70vh;
+  background-image: url('/your-bike-image.jpg'); /* replace with your image */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(7, 3, 56, 0.6); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.hero-title span {
+  color: #ff6600; 
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+/* ORANGE BUTTON */
+.btn-primary {
+  background: #ff6600;
+  color: #070338;
+}
+
+.btn-primary:hover {
+  background: #ff7f2a;
+}
+
+/* OUTLINE BUTTON */
+.btn-secondary {
+  border: 2px solid #ff6600;
+  color: #ff6600;
+}
+
+.btn-secondary:hover {
+  background: #ff6600;
+  color: #070338;
+}
+
+/* FEATURED SECTION */
+.featured {
+  padding: 60px 20px;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+  color: #ff6600;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 0 20px;
+}
+
+.bike-card {
+  background: #0d0a2b;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: 1px solid rgba(255, 102, 0, 0.2);
+}
+
+.bike-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(255, 102, 0, 0.4);
+}
+
+.bike-img-placeholder {
+  width: 100%;
+  height: 160px;
+  background: #1a1640;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.bike-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.bike-price {
+  color: #ff6600;
+  font-weight: 700;
+  margin-top: 5px;
+}
