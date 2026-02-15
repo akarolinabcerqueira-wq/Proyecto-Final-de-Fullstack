@@ -6,6 +6,8 @@ import {
   getBikeByIdRequest,
   updateBikeRequest
 } from '../services/bike.service';
+import Footer from "../components/Footer";
+
 
 const EditBike = () => {
   const { id } = useParams();
@@ -37,6 +39,7 @@ const EditBike = () => {
     <section>
       <h1>Editar bicicleta</h1>
       <BikeForm initialData={bike} onSubmit={handleUpdate} />
+        <Footer /> 
     </section>
   );
 };

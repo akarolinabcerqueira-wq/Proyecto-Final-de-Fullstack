@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getBikesRequest } from "../services/bike.service";
 import BikeCard from "../components/BikeCard";
 import FilterBar from "../components/FilterBar";
+import Footer from "../components/Footer";
 
 export default function Inicio() {
   const [bikes, setBikes] = useState([]);
@@ -61,7 +62,9 @@ export default function Inicio() {
             <BikeCard key={bike._id} bike={bike} />
           ))}{" "}
         </div>{" "}
+       
       </section>
+         <Footer /> 
     </div>
   );
 }

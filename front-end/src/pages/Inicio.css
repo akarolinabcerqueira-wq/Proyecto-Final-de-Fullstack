@@ -33,6 +33,7 @@
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 10px;
+  color: white;
 }
 
 .hero-title span {
@@ -43,6 +44,7 @@
   font-size: 1.2rem;
   opacity: 0.9;
   margin-bottom: 30px;
+  color: white;
 }
 
 .hero-buttons {
