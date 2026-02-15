@@ -7,6 +7,7 @@ const bikeSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
+    category: { type: String, required: false },
     brand: {
       type: String,
       required: true,

@@ -41,26 +41,22 @@ export const createBike = async (req, res) => {
  */
 export const getBikes = async (req, res) => {
   try {
-    const { brand, sold, minPrice, maxPrice } = req.query;
+    const { brand, sold, minPrice, maxPrice, category } = req.query;
 
     const filters = {};
 
-    if (brand) {
-      filters.brand = brand;
-    }
+    if (brand) filters.brand = brand;
 
- if (sold === 'true' || sold === 'false') { filters.sold = sold === 'true'; }
+    if (category) filters.category = category; // ADD THIS
+
+    if (sold === 'true' || sold === 'false') {
+      filters.sold = sold === 'true';
+    }
 
     if (minPrice || maxPrice) {
       filters.price = {};
-
-      if (minPrice) {
-        filters.price.$gte = Number(minPrice);
-      }
-
-      if (maxPrice) {
-        filters.price.$lte = Number(maxPrice);
-      }
+      if (minPrice) filters.price.$gte = Number(minPrice);
+      if (maxPrice) filters.price.$lte = Number(maxPrice);
     }
 
     const bikes = await Bike.find(filters)
@@ -69,11 +65,10 @@ export const getBikes = async (req, res) => {
 
     res.status(200).json(bikes);
   } catch (error) {
-    res.status(500).json({
-      message: 'Error al obtener las bicicletas'
-    });
+    res.status(500).json({ message: 'Error al obtener las bicicletas' });
   }
 };
+
 
 /**
  * Obtener una bicicleta por ID
