@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
-import "./BikeCard.css";
 import { Link } from "react-router-dom";
 
-export default function BikeCard({ bike }) {
+export default function MyBikeCard({ bike, onDelete, onToggleSold }) {
   const [index, setIndex] = useState(0);
   const startX = useRef(null);
 
@@ -22,38 +21,39 @@ export default function BikeCard({ bike }) {
 
   const handleTouchEnd = (e) => {
     if (!startX.current) return;
-
     const endX = e.changedTouches[0].clientX;
     const diff = startX.current - endX;
 
-    if (diff > 50) nextImage();      // swipe left
-    if (diff < -50) prevImage();     // swipe right
+    if (diff > 50) nextImage();
+    if (diff < -50) prevImage();
 
     startX.current = null;
   };
 
   return (
-    <div className="bike-card">
+    <div className="my-bike-card">
       <div
-        className="bike-image-wrapper"
+        className="my-bike-image-wrapper"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <img
-          src={images[index]}
-          alt={bike.model}
-          className="bike-image"
-        />
+        {images.length > 0 ? (
+          <img
+            src={images[index]}
+            alt={bike.title}
+            className="my-bike-image"
+          />
+        ) : (
+          <div className="no-image">Sin imagen</div>
+        )}
 
-        {/* BADGE */}
         <span className={`status-badge ${bike.sold ? "sold" : "available"}`}>
           {bike.sold ? "Vendida" : "Disponible"}
         </span>
 
-        {/* ARROWS (only if more than 1 image) */}
         {images.length > 1 && (
           <>
-          <button className="arrow left" onClick={prevImage}>
+             <button className="arrow left" onClick={prevImage}>
   <svg width="18" height="18" viewBox="0 0 24 24">
     <path fill="white" d="M15 18l-6-6 6-6" />
   </svg>
@@ -64,19 +64,28 @@ export default function BikeCard({ bike }) {
     <path fill="white" d="M9 6l6 6-6 6" />
   </svg>
 </button>
-
           </>
         )}
       </div>
 
-      <div className="bike-info">
-        <h3 className="bike-title">{bike.brand} {bike.model}</h3>
-        <p className="bike-price">€{bike.price}</p>
+      <div className="my-bike-info">
+        <h3 className="my-bike-title">{bike.title}</h3>
+        <p className="my-bike-price">{bike.price} €</p>
 
-        <div className="bike-actions">
-          <Link to={`/bikes/${bike._id}`} className="btn-view">
-            Ver detalles
-          </Link>
+        <div className="my-bike-actions">
+          <div className="row">
+            <Link className="btn-orange" to={`/edit-bike/${bike._id}`}>
+              Editar
+            </Link>
+
+            <button className="btn-danger" onClick={() => onDelete(bike._id)}>
+              Eliminar
+            </button>
+          </div>
+
+          <button className="btn-dark full" onClick={() => onToggleSold(bike._id)}>
+            {bike.sold ? "Marcar disponible" : "Marcar vendida"}
+          </button>
         </div>
       </div>
     </div>

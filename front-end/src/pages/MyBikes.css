@@ -18,6 +18,7 @@
   border: 1px solid #1a164047;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
 }
 
 .my-bike-card:hover {
@@ -25,20 +26,22 @@
   box-shadow: 0 15px 30px rgba(4, 0, 255, 0.076);
 }
 
-/* IMAGE */
+/* IMAGE WRAPPER */
 .my-bike-image-wrapper {
   position: relative;
   width: 100%;
   height: 260px;
-  background: #1a1640;
   overflow: hidden;
-  border-radius: 20px 20px 0 0;
+  background: #1a1640;
+  border-radius: 18px;
 }
 
+/* IMAGE */
 .my-bike-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
 }
 
@@ -46,38 +49,68 @@
   transform: scale(1.08);
 }
 
-.no-image {
-  width: 100%;
-  height: 100%;
-  background: #1a1640;
-  color: #aaa;
-  display: flex;
+/* SWIPER ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(7, 3, 56, 0.6);
+  border: 2px solid rgba(255, 102, 0, 0.4);
+  color: white;
+  font-size: 1.6rem;
+  line-height: 1;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
   align-items: center;
   justify-content: center;
+  transition: 0.2s ease;
+  z-index: 10;
 }
 
-/* STATUS BADGE */
+.arrow:hover {
+  border-color: #ff6600;
+  background: rgba(255, 102, 0, 0.4);
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+/* SHOW ARROWS ON HOVER */
+.my-bike-image-wrapper:hover .arrow {
+  display: flex;
+}
+
+/* STATUS BADGE — SAME AS BIKECARD */
 .status-badge {
   position: absolute;
   top: 12px;
   left: 12px;
   padding: 6px 14px;
   border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #070338;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
   backdrop-filter: blur(4px);
-  text-transform: uppercase;
   letter-spacing: 0.5px;
   z-index: 5;
 }
 
 .status-badge.available {
   background: rgba(255, 190, 147, 0.9);
+  color: #070338;
 }
 
 .status-badge.sold {
   background: rgba(151, 151, 151, 0.85);
+  color: #070338;
 }
 
 /* INFO */
@@ -100,7 +133,6 @@
 }
 
 /* ACTION BUTTONS */
-/* ACTION BUTTONS */
 .my-bike-actions {
   display: flex;
   flex-direction: column;
@@ -120,7 +152,7 @@
   width: 100%;
 }
 
-/* ORANGE BUTTON (EDIT) */
+/* BUTTONS (same as global theme) */
 .btn-orange {
   background: #ff6600;
   color: #070338;
@@ -134,8 +166,7 @@
   text-decoration: none;
   transition: 0.2s ease;
   box-shadow: 0 0 12px rgba(255, 102, 0, 0.4);
-  font-family: inherit;
-  text-decoration: none;  display: inline-block; 
+  display: inline-block;
 }
 
 .btn-orange:hover {
@@ -144,7 +175,6 @@
   transform: translateY(-2px);
 }
 
-/* DARK BUTTON (TOGGLE SOLD) */
 .btn-dark {
   background: #1a1640;
   color: white;
@@ -164,7 +194,6 @@
   transform: translateY(-2px);
 }
 
-/* RED BUTTON (DELETE) */
 .btn-danger {
   background: #d9534f;
   color: white;
