@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginRequest } from '../services/auth.service';
 import useAuth from '../hooks/useAuth';
+import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -25,32 +26,43 @@ const Login = () => {
   };
 
   return (
-    <section>
-      <h1>Iniciar sesión</h1>
+    <section className="login-container">
+      <div className="login-card">
+        <h1 className="login-title">Iniciar sesión</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form className="login-form" onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            className="login-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            className="login-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <button type="submit">Entrar</button>
+          <button type="submit" className="btn-primary login-btn">
+            Entrar
+          </button>
 
-        {error && <p>{error}</p>}
-      </form>
+          {error && <p className="login-error">{error}</p>}
+        </form>
 
-      <Link to="/register">Crear cuenta</Link>
+        <p className="login-register">
+          ¿No tienes cuenta?{" "}
+          <Link to="/register" className="login-link">
+            Crear cuenta
+          </Link>
+        </p>
+      </div>
     </section>
   );
 };

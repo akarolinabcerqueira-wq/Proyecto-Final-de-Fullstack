@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBikeByIdRequest } from "../services/bike.service";
+import "./BikeDetail.css";
+
 const BikeDetail = () => {
   const { id } = useParams();
   const [bike, setBike] = useState(null);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchBike = async () => {
       try {
@@ -16,25 +19,50 @@ const BikeDetail = () => {
     };
     fetchBike();
   }, [id]);
+
   if (error) return <p>{error}</p>;
   if (!bike) return <p>Cargando...</p>;
+
   return (
-    <section>
-      {" "}
-      <h1>{bike.title}</h1> <img src={bike.image} alt={bike.title} />{" "}
-      <p>
-        <strong>Marca:</strong> {bike.brand}
-      </p>{" "}
-      <p>
-        <strong>Modelo:</strong> {bike.model}
-      </p>{" "}
-      <p>
-        <strong>Precio:</strong> {bike.price} €
-      </p>{" "}
-      <p>
-        <strong>Estado:</strong> {bike.sold ? "Vendida" : "Disponible"}
-      </p>{" "}
+    <section className="detail-container">
+      <div className="detail-card">
+
+        {/* IMAGE GALLERY */}
+        <div className="detail-gallery">
+          {bike.images?.length > 0 ? (
+            bike.images.map((img, i) => (
+              <img key={i} src={img} alt={bike.title} className="detail-image" />
+            ))
+          ) : (
+            <div className="no-image">Sin imágenes</div>
+          )}
+        </div>
+
+        {/* INFO */}
+        <div className="detail-info">
+          <h1 className="detail-title">{bike.title}</h1>
+
+          <span className={`detail-status ${bike.sold ? "sold" : "available"}`}>
+            {bike.sold ? "Vendida" : "Disponible"}
+          </span>
+
+          <p className="detail-price">{bike.price} €</p>
+
+          <div className="detail-specs">
+            <p><strong>Marca:</strong> {bike.brand}</p>
+            <p><strong>Modelo:</strong> {bike.model}</p>
+            <p><strong>Categoría:</strong> {bike.category}</p>
+          </div>
+
+          <div className="detail-description">
+            <h3>Descripción</h3>
+            <p>{bike.description}</p>
+          </div>
+
+        </div>
+      </div>
     </section>
   );
 };
+
 export default BikeDetail;

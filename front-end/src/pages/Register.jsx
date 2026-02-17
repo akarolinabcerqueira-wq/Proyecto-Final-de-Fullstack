@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { registerRequest } from '../services/auth.service';
+import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ const Register = () => {
       await registerRequest(formData);
       navigate('/login');
     } catch (err) {
-      console.error('REGISTER ERROR:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -37,38 +37,45 @@ const Register = () => {
   };
 
   return (
-    <section>
-      <h1>Crear cuenta</h1>
+    <section className="register-container">
+      <div className="register-card">
+        <h1 className="register-title">Crear cuenta</h1>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
+        <form className="register-form" onSubmit={handleSubmit}>
           <input
             type="email"
             name="email"
+            className="register-input"
+            placeholder="Email"
             value={formData.email}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <div>
-          <label>Contraseña</label>
           <input
             type="password"
             name="password"
+            className="register-input"
+            placeholder="Contraseña"
             value={formData.password}
             onChange={handleChange}
             required
           />
-        </div>
 
-        <button type="submit" disabled={loading}>
-          {loading ? 'Creando cuenta...' : 'Registrarse'}
-        </button>
-      </form>
+          <button type="submit" className="btn-primary register-btn" disabled={loading}>
+            {loading ? "Creando cuenta..." : "Registrarse"}
+          </button>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+          {error && <p className="register-error">{error}</p>}
+        </form>
+
+        <p className="register-login">
+          ¿Ya tienes cuenta?{" "}
+          <Link to="/login" className="register-link">
+            Iniciar sesión
+          </Link>
+        </p>
+      </div>
     </section>
   );
 };

@@ -69,26 +69,28 @@
   left: 12px;
   padding: 6px 14px;
   border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: white;
   backdrop-filter: blur(4px);
-  text-transform: uppercase;
   letter-spacing: 0.5px;
   z-index: 5
 }
 
-/* AVAILABLE = ORANGE */
+/* AVAILABLE  */
 .status-badge.available {
   background: rgba(255, 190, 147, 0.9);
   color: #070338;
+   font-size: 0.8rem;
+  font-weight: 600;
 }
 
-/* SOLD = RED */
+/* SOLD  */
 .status-badge.sold {
   background: rgba(151, 151, 151, 0.85);
     color: #070338;
-
+       font-size: 0.8rem;
+  font-weight: 600;
 }
 
 
