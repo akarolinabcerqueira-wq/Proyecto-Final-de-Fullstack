@@ -59,7 +59,7 @@ export const getBikes = async (req, res) => {
     }
 
     const bikes = await Bike.find(filters)
-      .populate("owner", "email")
+      .populate("owner", "email whatsapp")
       .sort({ createdAt: -1 });
 
     res.status(200).json(bikes);
@@ -73,7 +73,7 @@ export const getBikes = async (req, res) => {
  */
 export const getBikeById = async (req, res) => {
   try {
-    const bike = await Bike.findById(req.params.id).populate("owner", "email");
+    const bike = await Bike.findById(req.params.id).populate("owner", "email whatsapp");
 
     if (!bike) {
       return res.status(404).json({

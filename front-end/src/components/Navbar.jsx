@@ -7,18 +7,23 @@ const Navbar = () => {
 
   return (
     <nav>
-      <Link to="/">Inicio</Link>
-     
+      <div className="nav-left">
+        <Link to="/">BikeMarket</Link>
+      </div>
 
-      {isAuthenticated ? (
-        <>
-          <Link to="/my-bikes">Mis bicis</Link>
-          <Link to="/new-bike">Vender bici</Link>
-          <button onClick={logout}>Salir</button>
-        </>
-      ) : (
-        <Link to="/login">Login</Link>
-      )}
+      <div className="nav-right">
+        <Link to="/">Inicio</Link>
+
+        {isAuthenticated ? (
+          <>
+            <Link to="/my-bikes">Mis bicis</Link>
+            <Link to="/new-bike">Vender bici</Link>
+            <button onClick={logout}>Salir</button>
+          </>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
+      </div>
     </nav>
   );
 };

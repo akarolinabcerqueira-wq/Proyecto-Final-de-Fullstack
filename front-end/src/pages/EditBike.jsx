@@ -35,11 +35,13 @@ const EditBike = () => {
   if (!bike) return <p>Cargando...</p>;
 
   return (
-    <section>
-      <h1>Editar bicicleta</h1>
-      <BikeForm initialData={bike} onSubmit={handleUpdate} />
+    <div>
+      <section className="bike-form-container">
+    <h1 className="bike-form-title">Editar bicicleta</h1>
+            <BikeForm initialData={bike} onSubmit={handleUpdate} />{" "}
+      </section>
       <Footer />
-    </section>
+    </div>
   );
 };
 

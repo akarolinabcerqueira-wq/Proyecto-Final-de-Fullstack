@@ -18,11 +18,12 @@ const NewBike = () => {
   };
 
   return (
-    <section>
-      <h1>Vender bicicleta</h1>
-      <BikeForm onSubmit={handleCreate} />
+<div>
+      <section className="bike-form-container">
+      <h1 className="bike-form-title">Vender bicicleta</h1>
+      <BikeForm onSubmit={handleCreate} /> </section>
          <Footer /> 
-    </section>
+   </div>
   );    
 };
 

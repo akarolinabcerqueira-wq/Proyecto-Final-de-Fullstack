@@ -58,6 +58,20 @@ const BikeDetail = () => {
             <h3>Descripción</h3>
             <p>{bike.description}</p>
           </div>
+{/* CONTACT SECTION */}
+{bike.owner?.whatsapp && (
+  <div className="detail-contact">
+    <h3>¿Te interesa esta bici?</h3>
+    <a
+      href={`https://wa.me/${bike.owner.whatsapp}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="whatsapp-btn"
+    >
+      Contactar por WhatsApp
+    </a>
+  </div>
+)}
 
         </div>
       </div>

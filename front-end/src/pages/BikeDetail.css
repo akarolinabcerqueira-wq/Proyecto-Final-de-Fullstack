@@ -5,7 +5,6 @@
   padding: 60px 40px;
   display: flex;
   justify-content: center;
-
 }
 
 .detail-card {
@@ -116,4 +115,29 @@
   .detail-image {
     height: 240px;
   }
+}
+.detail-contact {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #0d0a2b;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 102, 0, 0.4);
+  text-align: center;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 12px 20px;
+  background: #25D366;
+  color: #070338;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
 }

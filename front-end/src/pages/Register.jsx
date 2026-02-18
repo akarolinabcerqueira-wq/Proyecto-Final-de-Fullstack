@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { registerRequest } from '../services/auth.service';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { registerRequest } from "../services/auth.service";
 import "./Register.css";
 
 const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
+    whatsapp: "",
   });
 
   const [error, setError] = useState(null);
@@ -17,7 +18,7 @@ const Register = () => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -28,7 +29,7 @@ const Register = () => {
 
     try {
       await registerRequest(formData);
-      navigate('/login');
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -61,8 +62,21 @@ const Register = () => {
             onChange={handleChange}
             required
           />
+          <input
+            type="tel"
+            name="whatsapp"
+            className="register-input"
+            placeholder="Número de WhatsApp"
+            value={formData.whatsapp}
+            onChange={handleChange}
+            required
+          />
 
-          <button type="submit" className="btn-primary register-btn" disabled={loading}>
+          <button
+            type="submit"
+            className="btn-primary register-btn"
+            disabled={loading}
+          >
             {loading ? "Creando cuenta..." : "Registrarse"}
           </button>
 

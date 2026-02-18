@@ -1,18 +1,72 @@
 nav {
   background: #070338;
-  padding: 1rem;
+  padding: 16px 40px;
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(255, 102, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(7, 3, 56, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-nav a {
-  color: white;
+/* LEFT SIDE (LOGO / BRAND) */
+.nav-left a {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ff6600;
   text-decoration: none;
 }
 
-nav button {
-  background: transparent;
-  border: none;
+/* RIGHT SIDE (LINKS) */
+.nav-right {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+/* LINKS */
+nav a {
   color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+nav a:hover {
+  color: #ff6600;
+}
+
+/* LOGOUT BUTTON */
+nav button {
+  background: #ff6600;
+  color: #070338;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: none;
   cursor: pointer;
+  transition: 0.2s ease;
+}
+
+nav button:hover {
+  background: #ff7f2a;
+  transform: translateY(-2px);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .nav-right {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
