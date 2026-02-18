@@ -6,12 +6,16 @@ import {
   toggleSoldRequest,
 } from "../services/bike.service";
 import MyBikeCard from "../components/MyBikeCard";
+import toast from "react-hot-toast";
 import "./MyBikes.css";
 
 const MyBikes = () => {
   const { token } = useAuth();
   const [bikes, setBikes] = useState([]);
   const [error, setError] = useState(null);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [bikeToDelete, setBikeToDelete] = useState(null);
 
   const loadBikes = async () => {
     try {
@@ -26,10 +30,20 @@ const MyBikes = () => {
     loadBikes();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (!confirm("¿Eliminar esta bici?")) return;
-    await deleteBikeRequest(id, token);
-    loadBikes();
+  const openDeleteModal = (id) => {
+    setBikeToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await deleteBikeRequest(bikeToDelete, token);
+      toast.success("Bicicleta eliminada correctamente");
+      setShowDeleteModal(false);
+      loadBikes();
+    } catch (err) {
+      toast.error("Error al eliminar la bicicleta");
+    }
   };
 
   const handleToggleSold = async (id) => {
@@ -42,7 +56,7 @@ const MyBikes = () => {
     try {
       await toggleSoldRequest(id, token);
     } catch (err) {
-      alert(err.message);
+      toast.error("Error al actualizar estado");
       loadBikes();
     }
   };
@@ -59,11 +73,34 @@ const MyBikes = () => {
           <MyBikeCard
             key={bike._id}
             bike={bike}
-            onDelete={handleDelete}
+            onDelete={openDeleteModal}
             onToggleSold={handleToggleSold}
           />
         ))}
       </div>
+
+      {/* DELETE MODAL */}
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>¿Eliminar bicicleta?</h3>
+            <p>Esta acción no se puede deshacer.</p>
+
+            <div className="modal-buttons">
+              <button className="confirm-delete" onClick={confirmDelete}>
+                Sí, eliminar
+              </button>
+
+              <button
+                className="cancel-delete"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

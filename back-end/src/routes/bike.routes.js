@@ -32,8 +32,8 @@ router.get('/:id', getBikeById);
 /**
  * Rutas protegidas
  */
-router.post('/', authMiddleware, upload.array('images'), createBike);
-router.put('/:id', authMiddleware, upload.array('images'), updateBike);
+router.post('/', authMiddleware, createBike);
+router.put('/:id', authMiddleware, updateBike);
 router.delete('/:id', authMiddleware, deleteBike);
 
 /**

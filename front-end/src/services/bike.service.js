@@ -80,14 +80,16 @@ export const toggleSoldRequest = async (id, token) => {
   return data;
 };
 
-export const createBikeRequest = async (formData, token) => {
+export const createBikeRequest = async (payload, token) => {
   const response = await fetch(`${API_URL}/bikes`, {
     method: "POST",
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: formData,
+    body: JSON.stringify(payload),
   });
+
 
   const data = await response.json();
 

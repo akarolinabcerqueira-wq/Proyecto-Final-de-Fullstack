@@ -5,8 +5,10 @@ import useAuth from "../hooks/useAuth";
 import {
   getBikeByIdRequest,
   updateBikeRequest,
+  deleteBikeRequest
 } from "../services/bike.service";
 import Footer from "../components/Footer";
+import toast from "react-hot-toast";
 
 const EditBike = () => {
   const { id } = useParams();
@@ -26,9 +28,20 @@ const EditBike = () => {
   const handleUpdate = async (formData) => {
     try {
       await updateBikeRequest(id, formData, token);
+      toast.success("Bicicleta actualizada");
       navigate("/my-bikes");
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteBikeRequest(id, token);
+      toast.success("Bicicleta eliminada correctamente");
+      navigate("/my-bikes");
+    } catch (error) {
+      toast.error("Error al eliminar la bicicleta");
     }
   };
 
@@ -37,9 +50,16 @@ const EditBike = () => {
   return (
     <div>
       <section className="bike-form-container">
-    <h1 className="bike-form-title">Editar bicicleta</h1>
-            <BikeForm initialData={bike} onSubmit={handleUpdate} />{" "}
+        <h1 className="bike-form-title">Editar bicicleta</h1>
+
+        {/* HERE is where you pass onDelete */}
+        <BikeForm
+          initialData={bike}
+          onSubmit={handleUpdate}
+          onDelete={handleDelete}
+        />
       </section>
+
       <Footer />
     </div>
   );

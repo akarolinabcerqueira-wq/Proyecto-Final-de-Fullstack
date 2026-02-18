@@ -7,14 +7,17 @@ import jwt from "jsonwebtoken";
  */
 export const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, whatsapp } = req.body;
 
-    if (!email || !password) {
+    if (!email || !password || !whatsapp) {
       return res.status(400).json({
-        message: "Email y contraseña obligatorios",
+        message: "Email, contraseña y WhatsApp son obligatorios",
       });
     }
-
+const whatsappRegex = /^\+?[0-9]{7,15}$/;
+if (!whatsappRegex.test(whatsapp)) {
+  return res.status(400).json({ message: "Número de WhatsApp inválido" });
+}
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({
@@ -34,7 +37,7 @@ export const register = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: "Error al registrar usuario",
+      message: error.message,
     });
   }
 };

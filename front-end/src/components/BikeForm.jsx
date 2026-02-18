@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./‌BikeForm.css";
+import { uploadImage } from "../utils/uploadImage";
+import { compressImage } from "../utils/compressImage";
 
 const brandOptions = {
   mountain: ["Trek", "Specialized", "Giant", "Cannondale", "Scott"],
@@ -14,8 +16,16 @@ const brandOptions = {
 
 const allBrands = [...new Set(Object.values(brandOptions).flat())];
 
-const BikeForm = ({ initialData = {}, onSubmit }) => {
+const BikeForm = ({
+  initialData = {},
+  onSubmit,
+  onDelete,
+  loading = false,
+}) => {
   const isEditing = Boolean(initialData && initialData._id);
+
+  // ✅ MUST BE INSIDE THE COMPONENT
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const [formData, setFormData] = useState({
     title: initialData.title || "",
@@ -39,41 +49,52 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
     });
   };
 
-  const handleFilesChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    setFormData({ ...formData, images: [...formData.images, ...newFiles] });
-  };
+  const handleFilesChange = async (e) => {
+  const newFiles = Array.from(e.target.files);
+
+  // Show previews immediately
+  setFormData((prev) => ({
+    ...prev,
+    images: [...prev.images, ...newFiles.map((f) => URL.createObjectURL(f))],
+  }));
+
+ const uploadedUrls = await Promise.all( newFiles.map(async (file) => { const compressed = await compressImage(file); return uploadImage(compressed); }) );
+
+
+  setFormData((prev) => ({
+    ...prev,
+    images: [
+      ...prev.images.filter((img) => typeof img === "string"),
+      ...uploadedUrls,
+    ],
+  }));
+};
   const handleDeleteImage = (index) => {
     setFormData((prev) => ({
       ...prev,
       images: prev.images.filter((_, i) => i !== index),
     }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const fd = new FormData();
+const payload = {
+  title: formData.title,
+  category: formData.category,
+  brand: formData.brand,
+  model: formData.model,
+  price: formData.price,
+  description: formData.description,
+  sold: formData.sold,
+  images: formData.images, 
+};
 
-    fd.append("title", formData.title);
-    fd.append("category", formData.category);
-    fd.append("brand", formData.brand);
-    fd.append("model", formData.model);
-    fd.append("price", formData.price);
-    fd.append("description", formData.description);
-    fd.append("sold", formData.sold);
-
-    formData.images.forEach((img) => {
-      if (img instanceof File) {
-        fd.append("images", img);
-      }
-    });
-
-    onSubmit(fd);
-  };
+onSubmit(payload);
+  }
 
   return (
     <div className="bike-form-container">
-      {/* FORM */}
       <form className="bike-form" onSubmit={handleSubmit}>
         <input
           name="title"
@@ -161,30 +182,65 @@ const BikeForm = ({ initialData = {}, onSubmit }) => {
           </label>
         )}
 
-        <button type="submit">Guardar</button>
+        {/* BUTTONS */}
+        <div className="form-buttons">
+          <button type="submit" className="save-btn" disabled={loading}>
+            {loading ? "Subiendo..." : "Guardar"}
+          </button>
+
+          {isEditing && (
+            <button
+              type="button"
+              className="delete-btn"
+              onClick={() => setShowDeleteModal(true)}
+            >
+              Eliminar
+            </button>
+          )}
+        </div>
       </form>
+
+      {/* DELETE MODAL */}
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>¿Eliminar bicicleta?</h3>
+            <p>Esta acción no se puede deshacer.</p>
+
+            <div className="modal-buttons">
+              <button className="confirm-delete" onClick={() => onDelete()}>
+                Sí, eliminar
+              </button>
+
+              <button
+                className="cancel-delete"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* IMAGE GALLERY */}
       <div className="image-gallery">
-        {" "}
         {formData.images.map((img, idx) => {
           const isFile = img instanceof File;
           const src = isFile ? URL.createObjectURL(img) : img;
           return (
             <div className="gallery-item" key={idx}>
-              {" "}
-              <img src={src} alt={`preview-${idx}`} />{" "}
+              <img src={src} alt={`preview-${idx}`} />
               <button
                 type="button"
                 className="delete-image-btn"
                 onClick={() => handleDeleteImage(idx)}
               >
-                {" "}
-                ✕{" "}
-              </button>{" "}
+                ✕
+              </button>
             </div>
           );
-        })}{" "}
+        })}
       </div>
     </div>
   );

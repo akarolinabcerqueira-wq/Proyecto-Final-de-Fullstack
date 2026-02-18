@@ -38,11 +38,7 @@ export default function MyBikeCard({ bike, onDelete, onToggleSold }) {
         onTouchEnd={handleTouchEnd}
       >
         {images.length > 0 ? (
-          <img
-            src={images[index]}
-            alt={bike.title}
-            className="my-bike-image"
-          />
+          <img src={images[index]} alt={bike.title} className="my-bike-image" />
         ) : (
           <div className="no-image">Sin imagen</div>
         )}
@@ -53,17 +49,17 @@ export default function MyBikeCard({ bike, onDelete, onToggleSold }) {
 
         {images.length > 1 && (
           <>
-             <button className="arrow left" onClick={prevImage}>
-  <svg width="18" height="18" viewBox="0 0 24 24">
-    <path fill="white" d="M15 18l-6-6 6-6" />
-  </svg>
-</button>
+            <button className="arrow left" onClick={prevImage}>
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="white" d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
 
-<button className="arrow right" onClick={nextImage}>
-  <svg width="18" height="18" viewBox="0 0 24 24">
-    <path fill="white" d="M9 6l6 6-6 6" />
-  </svg>
-</button>
+            <button className="arrow right" onClick={nextImage}>
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="white" d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
           </>
         )}
       </div>
@@ -78,12 +74,19 @@ export default function MyBikeCard({ bike, onDelete, onToggleSold }) {
               Editar
             </Link>
 
-            <button className="btn-danger" onClick={() => onDelete(bike._id)}>
+            {/* ✔ Correct delete button */}
+            <button
+              className="btn-danger"
+              onClick={() => onDelete(bike._id)}
+            >
               Eliminar
             </button>
           </div>
 
-          <button className="btn-dark full" onClick={() => onToggleSold(bike._id)}>
+          <button
+            className="btn-dark full"
+            onClick={() => onToggleSold(bike._id)}
+          >
             {bike.sold ? "Marcar disponible" : "Marcar vendida"}
           </button>
         </div>

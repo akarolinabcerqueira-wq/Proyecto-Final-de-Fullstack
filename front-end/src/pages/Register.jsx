@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registerRequest } from "../services/auth.service";
 import "./Register.css";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,21 +22,33 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
+  e.preventDefault();
+  setError(null);
+  setLoading(true);
 
-    try {
-      await registerRequest(formData);
-      navigate("/login");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const whatsappRegex = /^\+?[0-9]{7,15}$/;
+
+  if (!whatsappRegex.test(formData.whatsapp)) {
+    setError("Número de WhatsApp inválido.");
+    setLoading(false);
+    return;
+  }
+
+  try {
+    await registerRequest(formData);
+
+    toast.success("Cuenta creada correctamente");
+
+    navigate("/login");
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section className="register-container">

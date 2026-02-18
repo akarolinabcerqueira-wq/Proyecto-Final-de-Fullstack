@@ -6,20 +6,10 @@ import cloudinary from "../config/cloudinary.js";
  */
 export const createBike = async (req, res) => {
   try {
-    // 1️⃣ Subir imágenes a Cloudinary
-    const uploadedImages = [];
-    if (req.files) {
-      for (const file of req.files) {
-        const result = await cloudinary.uploader.upload(file.path);
-        uploadedImages.push(result.secure_url);
-      }
-    }
-
-    // Crear bicicleta con datos del form + imágenes + owner
     const bikeData = {
       ...req.body,
       owner: req.user._id,
-      images: uploadedImages,
+      images: req.body.images || [],
     };
 
     const bike = await Bike.create(bikeData);
@@ -29,12 +19,10 @@ export const createBike = async (req, res) => {
       bike,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: error.message,
-    });
+    res.status(500).json({ message: error.message });
   }
 };
+
 /**
  * Obtener todas las bicicletas con filtros
  */
@@ -96,27 +84,6 @@ export const updateBike = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Existing images (after user deletion)
-    let existingImages = req.body.existingImages || [];
-
-    if (typeof existingImages === "string") {
-      existingImages = [existingImages];
-    }
-
-    // New uploaded images
-    let newImages = [];
-
-    if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        const uploaded = await cloudinary.uploader.upload(file.path, {
-          folder: "bikes",
-        });
-        newImages.push(uploaded.secure_url);
-      }
-    }
-
-    const finalImages = [...existingImages, ...newImages];
-
     const updatedBike = await Bike.findByIdAndUpdate(
       id,
       {
@@ -127,17 +94,17 @@ export const updateBike = async (req, res) => {
         price: req.body.price,
         description: req.body.description,
         sold: req.body.sold === "true",
-        images: finalImages,
+        images: req.body.images || [],
       },
       { new: true }
     );
 
     res.json(updatedBike);
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Error updating bike" });
   }
 };
+
 
 
 /**
