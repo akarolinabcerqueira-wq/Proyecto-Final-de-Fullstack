@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 /**
  * Middleware de autenticación
@@ -9,21 +9,21 @@ export const authMiddleware = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
-        message: 'No autorizado'
+        message: "No autorizado",
       });
     }
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(" ")[1];
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decoded.id).select('-password');
+    const user = await User.findById(decoded.id).select("-password");
 
     if (!user) {
       return res.status(401).json({
-        message: 'Usuario no válido'
+        message: "Usuario no válido",
       });
     }
 
@@ -31,7 +31,7 @@ export const authMiddleware = async (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      message: 'Token inválido'
+      message: "Token inválido",
     });
   }
 };
@@ -39,12 +39,9 @@ export const authMiddleware = async (req, res, next) => {
 /**
  * Middleware para comprobar rol de administrador
  */
-export const adminMiddleware = (req, res, next) => {
-  if (req.user.role !== 'admin') {
-    return res.status(403).json({
-      message: 'Acceso denegado'
-    });
+export const adminOnly = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "Acceso denegado: solo admin" });
   }
-
   next();
 };

@@ -10,30 +10,41 @@ import EditBike from "./pages/EditBike";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminBikes from "./pages/admin/AdminBikes";
+import useAuth from "./hooks/useAuth";
+
+function AdminRoute({ children }) {
+  const { user } = useAuth();
+  if (!user || user.role !== "admin") {
+    return <h2>Acceso denegado</h2>;
+  }
+  return children;
+}
 
 function App() {
   return (
     <BrowserRouter>
       {/* Toast system */}
-   <Toaster
-  position="top-center"
-  containerStyle={{
-    top: "120px"  
-  }}
-  toastOptions={{
-    style: {
-      background: "#0d0a2b",
-      color: "white",
-      border: "2px solid #ff6600",
-      fontWeight: "600",
-    },
-    iconTheme: {
-      primary: "#ff6600",
-      secondary: "#fff",
-    },
-  }}
-/>
-
+      <Toaster
+        position="top-center"
+        containerStyle={{
+          top: "120px",
+        }}
+        toastOptions={{
+          style: {
+            background: "#0d0a2b",
+            color: "white",
+            border: "2px solid #ff6600",
+            fontWeight: "600",
+          },
+          iconTheme: {
+            primary: "#ff6600",
+            secondary: "#fff",
+          },
+        }}
+      />
 
       <Navbar />
 
@@ -67,6 +78,32 @@ function App() {
             <ProtectedRoute>
               <NewBike />
             </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/users"
+          element={
+            <AdminRoute>
+              <AdminUsers />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/bikes"
+          element={
+            <AdminRoute>
+              <AdminBikes />
+            </AdminRoute>
           }
         />
       </Routes>

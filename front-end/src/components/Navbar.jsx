@@ -3,7 +3,7 @@ import useAuth from '../hooks/useAuth';
 import './Navbar.css';
 
 const Navbar = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
 
   return (
     <nav>
@@ -16,6 +16,11 @@ const Navbar = () => {
 
         {isAuthenticated ? (
           <>
+            {/* Show admin link only if user.role === "admin" */}
+            {user?.role === "admin" && (
+              <Link to="/admin">Admin</Link>
+            )}
+
             <Link to="/my-bikes">Mis bicis</Link>
             <Link to="/new-bike">Vender bici</Link>
             <button onClick={logout}>Salir</button>
