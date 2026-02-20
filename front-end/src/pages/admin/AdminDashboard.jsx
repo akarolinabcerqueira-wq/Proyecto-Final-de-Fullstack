@@ -3,7 +3,7 @@ import AdminLayout from "./AdminLayout";
 export default function AdminDashboard() {
   return (
     <AdminLayout>
-      <h1>Panel de Administración</h1>
+      <h1 className="section-title">Panel de Administración</h1>
 
       <div className="admin-cards">
         <div className="admin-card">

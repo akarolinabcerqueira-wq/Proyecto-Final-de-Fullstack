@@ -10,6 +10,12 @@ export default function Inicio() {
   const [bikes, setBikes] = useState([]);
   const [filters, setFilters] = useState({});
   const [error, setError] = useState(null);
+const scrollToBikes = () => {
+  const section = document.getElementById("bikes-section");
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
   useEffect(() => {
     const fetchBikes = async () => {
@@ -37,10 +43,7 @@ export default function Inicio() {
           </p>
 
           <div className="hero-buttons">
-            <Link to="/bikes" className="btn-primary">
-              Ver Todas
-            </Link>
-            <Link to="/new-bike" className="btn-secondary">
+<button onClick={scrollToBikes} className="btn-primary"> Ver Todas </button>            <Link to="/new-bike" className="btn-secondary">
               Publicar Bicicleta
             </Link>
           </div>
@@ -48,7 +51,7 @@ export default function Inicio() {
       </section>
 
       {/* FILTERS */}
-      <section className="featured">
+      <section id="bikes-section" className="featured">
         {" "}
         <h2 className="section-title">Bicicletas Disponibles</h2>{" "}
         <div className="filter-bar-wrapper">

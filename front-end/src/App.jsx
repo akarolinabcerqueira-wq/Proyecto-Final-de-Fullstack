@@ -36,11 +36,11 @@ function App() {
           style: {
             background: "#0d0a2b",
             color: "white",
-            border: "2px solid #ff6600",
+            border: "2px solid #A60842",
             fontWeight: "600",
           },
           iconTheme: {
-            primary: "#ff6600",
+            primary: "#A60842",
             secondary: "#fff",
           },
         }}

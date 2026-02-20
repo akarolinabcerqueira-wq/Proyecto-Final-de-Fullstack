@@ -5,9 +5,10 @@ export default function AdminLayout({ children }) {
   return (
     <div className="admin-container">
       <aside className="admin-sidebar">
+            <nav className="admin-nav">
         <h2 className="admin-title">Admin</h2>
 
-        <nav className="admin-nav">
+    
           <Link to="/admin">Dashboard</Link>
           <Link to="/admin/users">Usuarios</Link>
           <Link to="/admin/bikes">Bicicletas</Link>

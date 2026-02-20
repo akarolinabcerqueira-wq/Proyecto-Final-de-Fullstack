@@ -36,7 +36,7 @@
 }
 
 .hero-title span {
-  color: #ff6600;
+  color: #07C4D9;
 }
 
 .hero-subtitle {
@@ -56,6 +56,7 @@
 .btn-secondary {
   padding: 12px 28px;
   border-radius: 8px;
+  border: #A60842;
   font-weight: 600;
   text-decoration: none;
   transition: 0.2s ease;
@@ -63,29 +64,33 @@
 
 /* ORANGE BUTTON */
 .btn-primary {
-  background: #ff6600;
+  background: #A60842;
   color: #070338;
 }
 
 .btn-primary:hover {
-  background: #ff7f2a;
+  background: #bb0d4d;
 }
 
 /* OUTLINE BUTTON */
 .btn-secondary {
-  border: 2px solid #ff6600;
-  color: #ff6600;
+  background: #07C4D9;
+  border: 2px solid #1cdbf1;
+  color: #070338;
 }
 
 .btn-secondary:hover {
-  background: #ff6600;
+  background: #1cdbf1;
   color: #070338;
 }
+
 /* PAGE LAYOUT */
 .featured {
-  padding: 60px 40px; /* space around the whole section */
+  padding: 60px 40px;
+  /* space around the whole section */
   max-width: 1400px;
-  margin: 0 auto; /* center the content */
+  margin: 0 auto;
+  /* center the content */
 }
 
 /* FILTER BAR SPACING */
@@ -96,14 +101,17 @@
 /* BIKE GRID */
 .bike-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); /* bigger cards */
-  gap: 40px; /* spacing between cards */
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-items: center;
 }
 
 .no-bikes {
   text-align: center;
-  color: #ff6600;
+  color: #A60842;
   font-size: 1.2rem;
   margin-top: 20px;
 }
@@ -123,7 +131,7 @@
   background: #0d0a2b;
   padding: 25px 30px;
   border-radius: 16px;
-  border: 2px solid rgba(255, 102, 0, 0.4);
+  border: 2px solid #A60842;
   margin-bottom: 40px;
 }
 
@@ -132,7 +140,7 @@
 .filter-bar select {
   padding: 12px 16px;
   border-radius: 10px;
-  border: 2px solid rgba(255, 102, 0, 0.4);
+  border: 2px solid #A60842;
   background: #1a1640;
   color: white;
   font-size: 1rem;
@@ -147,7 +155,7 @@
 .filter-bar input:focus,
 .filter-bar select:focus {
   outline: none;
-  border-color: #ff6600;
+  border-color: #A60842;
   box-shadow: 0 0 8px rgba(255, 102, 0, 0.5);
 }
 
@@ -155,7 +163,7 @@
 .filter-btn-submit {
   padding: 12px 24px;
   border-radius: 10px;
-  background: #ff6600;
+  background: #A60842;
   color: #070338;
   font-weight: 700;
   border: none;
@@ -165,13 +173,14 @@
 }
 
 .filter-btn-submit:hover {
-  background: #ff7f2a;
+  background: #bb0d4d;
   transform: translateY(-3px);
 }
+
 .brand-select {
   padding: 12px 16px;
   border-radius: 10px;
-  border: 2px solid rgba(255, 102, 0, 0.4);
+  border: 2px solid #a60842b4;
   background: #1a1640;
   color: white;
   font-size: 1rem;
@@ -181,12 +190,12 @@
 
 .brand-select:focus {
   outline: none;
-  border-color: #ff6600;
+  border-color: #A60842;
   box-shadow: 0 0 8px rgba(255, 102, 0, 0.5);
 }
 
 .brand-select optgroup {
-  color: #ff6600;
+  color: #A60842;
   font-weight: 700;
   background: #0d0a2b;
 }
@@ -195,4 +204,3 @@
   background: #1a1640;
   color: white;
 }
-

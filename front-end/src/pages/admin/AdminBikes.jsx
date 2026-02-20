@@ -16,6 +16,15 @@ export default function AdminBikes() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [bikeToDelete, setBikeToDelete] = useState(null);
 
+  // 🔥 Helper to sanitize image URLs
+  const getSafeImage = (img) => {
+    if (!img) return "/images/placeholder-bike.jpg";
+    if (img === "undefined") return "/images/placeholder-bike.jpg";
+    if (img === "null") return "/images/placeholder-bike.jpg";
+    if (img.trim() === "") return "/images/placeholder-bike.jpg";
+    return img;
+  };
+
   useEffect(() => {
     getBikesRequest().then(setBikes);
   }, []);
@@ -52,7 +61,11 @@ export default function AdminBikes() {
           {bikes.map((b) => (
             <tr key={b._id}>
               <td data-label="Foto">
-                <img src={b.images?.[0]} alt={b.title} className="admin-thumb" />
+                <img
+                  src={getSafeImage(b.images?.[0])}
+                  alt={b.title}
+                  className="admin-thumb"
+                />
               </td>
 
               <td data-label="Título">{b.title}</td>
