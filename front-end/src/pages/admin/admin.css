@@ -2,68 +2,78 @@
    LAYOUT
 -------------------------------------------------- */
 .admin-container {
-  display: flex;
-  min-height: calc(100vh - 70px); /* minus navbar height */
+  min-height: calc(100vh - 70px);
+  background: white;
   color: #14112f;
-}
-
-.admin-sidebar {
-  width: 220px;
-  border-right: 2px solid #A60842;
-  background-color: #0d0a2b;
+  /* ✅ Fixed: was "white on white" for page-level text */
 }
 
 .admin-content {
-  flex: 1;
   padding: 2rem;
 }
+
+.admin-content h1 {
+  color: #A60842;
+  /* ✅ Fixed: h1 was invisible */
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
 .section-title {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
   color: #A60842;
 }
+
+@media (max-width: 600px) {
+  .admin-content {
+    padding: 1rem;
+  }
+}
+
 /* --------------------------------------------------
-   SIDEBAR
+   TOP TABS NAVIGATION
 -------------------------------------------------- */
-.admin-title {
-  font-size: 1.6rem;
-  margin-bottom: 2rem;
-  color: #A60842;
-  text-align: center;
-}
-
-.admin-nav {
+.admin-tabs {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  gap: 2rem;
+  background: #14112f;
+  padding: 1rem 0;
+  border-bottom: 2px solid #A60842;
 }
 
-.admin-nav a {
+.admin-tabs .tab {
   color: white;
   text-decoration: none;
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 6px;
-  transition: 0.2s;
+  transition: 0.2s ease;
+  font-weight: 600;
 }
 
-.admin-nav a:hover {
-  color: #A60842;
+.admin-tabs .tab:hover {
+  background: #A60842;
+  color: white;
 }
 
-/* --------------------------------------------------
-   DASHBOARD CARDS
--------------------------------------------------- */
-.admin-cards {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 2rem;
+.admin-tabs .active {
+  background: #A60842;
+  color: white;
 }
 
-.admin-card {
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 2px solid #A60842;
-  flex: 1;
+@media (max-width: 600px) {
+  .admin-tabs {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.8rem;
+  }
+
+  .admin-tabs .tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.7rem;
+  }
 }
 
 /* --------------------------------------------------
@@ -73,7 +83,6 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
-
   border-radius: 8px;
   overflow: hidden;
 }
@@ -82,26 +91,30 @@
 .admin-table td {
   padding: 1rem;
   border-bottom: 1px solid #2a2647;
+  color: white;
+
 }
 
 .admin-table th {
   background: #0d0a2b;
-  color: #A60842;
   text-align: left;
   font-weight: 600;
 }
-
+.admin-table tr {
+  background: #0d0a2b;
+}
 .admin-table tr:hover {
   background: #1f1a40;
 }
 
-/* Thumbnail */
 .admin-thumb {
   width: 70px;
   height: 70px;
   object-fit: cover;
   border-radius: 6px;
   border: 2px solid #A60842;
+  display: block;
+
 }
 
 /* --------------------------------------------------
@@ -111,39 +124,39 @@
 .danger-btn,
 .confirm-delete,
 .cancel-delete {
+     background: #909090;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.2s ease;
   color: white;
-  font-size: 0.95rem;
-  line-height: 1.2;
+  font-size: 1rem;
 }
 
-/* Edit button */
-.edit-btn {
+.edit-btn, .confirm-delete {
   background: #A60842;
   text-decoration: none;
   margin-right: 0.5rem;
+  display: inline-block;
 }
 
-.edit-btn:hover {
-  background: #cc5200;
-}
 
-/* Delete button */
-.danger-btn,
-.confirm-delete {
-  background: #A60842;
-}
-
-.danger-btn:hover,
+.edit-btn,
 .confirm-delete:hover {
   background: #bb0d4d;
 }
 
-/* Cancel button */
+.danger-btn
+ {
+   background: #909090;
+  color: #1a1640;
+}
+
+.danger-btn:hover:hover {
+   background:#a9a9a9;
+}
+
 .cancel-delete {
   background: #444;
 }
@@ -157,10 +170,7 @@
 -------------------------------------------------- */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -174,44 +184,37 @@
   border-radius: 10px;
   border: 2px solid #A60842;
   text-align: center;
-  width: 350px;
+  width: min(350px, 80%);
+  color: white;
 }
 
 .modal-buttons {
   margin-top: 1.5rem;
   display: flex;
   justify-content: space-between;
+  gap: 0.8rem;
 }
-/* --------------------------------------------------
-   RESPONSIVE DESIGN
--------------------------------------------------- */
 
-/* Medium screens (tablets) */
-@media (max-width: 900px) {
-  .admin-container {
+@media (max-width: 500px) {
+  .modal {
+    padding: 1.5rem;
+  }
+
+  .modal-buttons {
     flex-direction: column;
   }
 
-  .admin-sidebar {
+  .confirm-delete,
+  .cancel-delete {
     width: 100%;
-    border-right: none;
-    border-bottom: 2px solid #A60842;
-    display: flex;
-    justify-content: center;
   }
-
-  .admin-nav {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-
 }
 
-/* Small screens (phones) */
+/* --------------------------------------------------
+   RESPONSIVE TABLE → CARDS
+-------------------------------------------------- */
 @media (max-width: 650px) {
-  /* Turn table into stacked cards */
+
   .admin-table,
   .admin-table thead,
   .admin-table tbody,
@@ -219,11 +222,10 @@
   .admin-table td,
   .admin-table tr {
     display: block;
-    width: 100%;
   }
 
   .admin-table thead {
-    display: none; /* Hide table header */
+    display: none;
   }
 
   .admin-table tr {
@@ -236,39 +238,94 @@
 
   .admin-table td {
     border: none;
-padding: 0.4rem 0;
+    padding: 0.5rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    color: white;
   }
 
   .admin-table td::before {
     content: attr(data-label);
     font-weight: 600;
     color: #A60842;
-    margin-right: 1rem;
+    flex-shrink: 0;
   }
 
   .admin-thumb {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Action cell: wrap buttons side by side, full width */
+  .admin-table td[data-label="Acciones"] {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .admin-table td[data-label="Acciones"]::before {
+    flex-basis: 100%;
+    margin-bottom: 0.3rem;
   }
 
   .edit-btn,
   .danger-btn {
-    width: 48%;
+    flex: 1;
     text-align: center;
+    margin: 0;
+    min-width: 80px;
+  }
+
+  .admin-table-users tr,
+  .admin-table-bikes tr {
+    display: block;
+    background: #0d0a2b;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    padding: 1rem 0.8rem;
+    border: 2px solid #1b1738;
+  }
+
+  .admin-table-users td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border: none;
+  }
+
+  .admin-table-bikes td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border: none;
+    gap: 1rem;
+  }
+
+  .admin-table-users td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #A60842;
+    margin-right: 1rem;
+  }
+
+  .admin-table-bikes td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #A60842;
+    margin-right: 1rem;
+  }
+
+  .admin-table-bikes .admin-thumb {
+    width: 90px;
+    height: 90px;
+  }
+
+  .admin-table-users .danger-btn,
+  .admin-table-bikes .danger-btn,
+  .admin-table-bikes .edit-btn {
+    width: 48%;
     margin: 0.3rem 0;
   }
-
-  .modal {
-    width: 90%;
-  }
-  @media (max-width: 650px) {
-  .admin-sidebar {
-    width: 90%;
-    padding: 1rem;
-  }
-}
-
 }

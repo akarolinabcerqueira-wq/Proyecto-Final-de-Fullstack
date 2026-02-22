@@ -70,8 +70,11 @@
 }
 
 .detail-status.available {
-  background: #0388a6b8;
-  color: #070338;
+
+   background: #722944;
+  color: white;
+   font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .detail-status.sold {
@@ -129,7 +132,7 @@
   display: inline-block;
   margin-top: 1rem;
   padding: 12px 20px;
-  background: #07C4D9;
+  background:  #A60842;
   color: #070338;
   font-weight: 700;
   border-radius: 10px;
@@ -138,6 +141,6 @@
 }
 
 .whatsapp-btn:hover {
-  background: #1cdbf1;
+  background: #bb0d4d;
   transform: translateY(-2px);
 }

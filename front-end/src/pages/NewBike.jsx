@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BikeForm from "../components/BikeForm";
-import useAuth from "../hooks/useAuth";
-import { createBikeRequest } from "../services/bike.service";
-import Footer from "../components/Footer";
+import BikeForm from "@/components/BikeForm";
+import useAuth from "@/hooks/useAuth";
+import { createBikeRequest } from "@/services/bike.service";
+import Footer from "@/components/Footer";
 import toast from "react-hot-toast";
 
 const NewBike = () => {

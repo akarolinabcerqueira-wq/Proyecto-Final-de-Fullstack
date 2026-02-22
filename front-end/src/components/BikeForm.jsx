@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./‌BikeForm.css";
 import { uploadImage } from "../utils/uploadImage";
 import { compressImage } from "../utils/compressImage";
+import { CONFIRM_DELETE_MESSAGE } from "@/constants/messages";
 
 const brandOptions = {
   mountain: ["Trek", "Specialized", "Giant", "Cannondale", "Scott"],
@@ -204,7 +205,7 @@ onSubmit(payload);
       {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>¿Eliminar bicicleta?</h3>
+            <h3>{CONFIRM_DELETE_MESSAGE}</h3>
             <p>Esta acción no se puede deshacer.</p>
 
             <div className="modal-buttons">

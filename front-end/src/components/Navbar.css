@@ -11,15 +11,14 @@ nav {
   z-index: 16;
 }
 
-/* LEFT SIDE (LOGO / BRAND) */
+/* LEFT SIDE */
 .nav-left a {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #A60842;
   text-decoration: none;
 }
 
-/* RIGHT SIDE (LINKS) */
+/* RIGHT SIDE */
 .nav-right {
   display: flex;
   gap: 24px;
@@ -40,9 +39,9 @@ nav a:hover {
 }
 
 /* LOGOUT BUTTON */
-nav button {
+nav button:not(.nav-hamburger) {
   background: #A60842;
-  color: #070338;
+  color: white;
   padding: 8px 16px;
   border-radius: 10px;
   font-weight: 700;
@@ -51,22 +50,98 @@ nav button {
   transition: 0.2s ease;
 }
 
-nav button:hover {
+nav button:not(.nav-hamburger):hover {
   background: #bb0d4d;
   transform: translateY(-2px);
+}
+
+/* HAMBURGER BUTTON */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 17;
+}
+
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hamburger-icon span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate to X when open */
+.hamburger-icon.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger-icon.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* MOBILE */
 @media (max-width: 600px) {
   nav {
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+  }
+
+  .nav-hamburger {
+    display: block;
   }
 
   .nav-right {
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    background: #070338;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .nav-right.nav-open {
+    display: flex;
+    max-height: 400px;
+    padding: 12px 0;
+  }
+
+  .nav-right a,
+  .nav-right button:not(.nav-hamburger) {
+    width: 100%;
+    padding: 12px 4px;
+    border-bottom: 1px solid #1a1660;
+    border-radius: 0;
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .nav-right button:not(.nav-hamburger) {
+    background: none;
+    color: #A60842;
+    font-weight: 700;
+    transform: none !important;
+  }
+
+  .nav-right button:not(.nav-hamburger):hover {
+    color: #bb0d4d;
+    background: none;
   }
 }

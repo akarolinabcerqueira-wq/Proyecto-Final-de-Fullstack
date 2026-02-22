@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import useAuth from "../hooks/useAuth";
+import useAuth from "@/hooks/useAuth";
 import {
   getMyBikesRequest,
   deleteBikeRequest,
   toggleSoldRequest,
-} from "../services/bike.service";
-import MyBikeCard from "../components/MyBikeCard";
+} from "@/services/bike.service";
+import MyBikeCard from "@/components/MyBikeCard";
 import toast from "react-hot-toast";
 import "./MyBikes.css";
+import { CONFIRM_DELETE_MESSAGE } from "@/constants/messages";
 
 const MyBikes = () => {
   const { token } = useAuth();
@@ -84,7 +85,7 @@ const MyBikes = () => {
       {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>¿Eliminar bicicleta?</h3>
+            <h3>{CONFIRM_DELETE_MESSAGE}</h3>
             <p>Esta acción no se puede deshacer.</p>
 
             <div className="modal-buttons">

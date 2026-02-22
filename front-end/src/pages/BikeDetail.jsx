@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getBikeByIdRequest } from "../services/bike.service";
+import { getBikeByIdRequest } from "@/services/bike.service";
 import "./BikeDetail.css";
 
 const BikeDetail = () => {

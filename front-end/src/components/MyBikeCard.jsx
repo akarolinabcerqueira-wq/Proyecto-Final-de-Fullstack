@@ -74,7 +74,6 @@ export default function MyBikeCard({ bike, onDelete, onToggleSold }) {
               Editar
             </Link>
 
-            {/* ✔ Correct delete button */}
             <button
               className="btn-danger"
               onClick={() => onDelete(bike._id)}

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import BikeForm from "../components/BikeForm";
-import useAuth from "../hooks/useAuth";
+import BikeForm from "@/components/BikeForm";
+import useAuth from "@/hooks/useAuth";
 import {
   getBikeByIdRequest,
   updateBikeRequest,
   deleteBikeRequest
-} from "../services/bike.service";
-import Footer from "../components/Footer";
+} from "@/services/bike.service";
+import Footer from "@/components/Footer";
 import toast from "react-hot-toast";
 
 const EditBike = () => {

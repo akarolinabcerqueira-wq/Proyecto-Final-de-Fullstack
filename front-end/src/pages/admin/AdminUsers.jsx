@@ -1,22 +1,38 @@
 import AdminLayout from "./AdminLayout";
 import useAuth from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
-import { getAllUsersRequest, deleteUserRequest } from "../../services/admin.service";
-
+import {
+  getAllUsersRequest,
+  deleteUserRequest,
+} from "../../services/admin.service";
+import { CONFIRM_USER_DELETE_MESSAGE } from "@/constants/messages";
 
 export default function AdminUsers() {
   const { token } = useAuth();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   const [users, setUsers] = useState([]);
-
+  const handleDelete = async (id) => {
+    await deleteUserRequest(id, token);
+    setUsers((prev) => prev.filter((u) => u._id !== id));
+  };
   useEffect(() => {
-    getAllUsersRequest(token).then(setUsers);
+    if (!token) return;
+    getAllUsersRequest(token)
+      .then((data) => {
+        if (!Array.isArray(data)) {
+          console.error("Unexpected response:", data);
+          return;
+        }
+        setUsers(data);
+      })
+      .catch((err) => console.error(err));
   }, [token]);
-
   return (
     <AdminLayout>
       <h1>Usuarios</h1>
 
-      <table className="admin-table">
+      <table className="admin-table admin-table-users">
         <thead>
           <tr>
             <th>Email</th>
@@ -28,17 +44,50 @@ export default function AdminUsers() {
         <tbody>
           {users.map((u) => (
             <tr key={u._id}>
-              <td>{u.email}</td>
-              <td>{u.role}</td>
-              <td>
-                <button className="danger-btn" onClick={() => deleteUserRequest(u._id, token)}>
-                  Eliminar
+              <td data-label="Email">{u.email}</td>
+              <td data-label="Rol">{u.role}</td>
+              <td data-label="Acciones">
+                <button
+                  className="danger-btn"
+                 onClick={() => { setUserToDelete(u._id); setShowDeleteModal(true); }}
+                >
+                  {" "}
+                  Eliminar{" "}
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {showDeleteModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <h3>{CONFIRM_USER_DELETE_MESSAGE }</h3>
+      <p>Esta acción no se puede deshacer.</p>
+
+      <div className="modal-buttons">
+        <button
+          className="confirm-delete"
+          onClick={async () => {
+            await deleteUserRequest(userToDelete, token);
+            setUsers((prev) => prev.filter((u) => u._id !== userToDelete));
+            setShowDeleteModal(false);
+          }}
+        >
+          Confirmar
+        </button>
+
+        <button
+          className="cancel-delete"
+          onClick={() => setShowDeleteModal(false)}
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </AdminLayout>
   );
 }

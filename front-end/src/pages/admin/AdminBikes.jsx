@@ -8,6 +8,7 @@ import {
 } from "../../services/bike.service";
 import toast from "react-hot-toast";
 import "./admin.css";
+import { CONFIRM_DELETE_MESSAGE } from "@/constants/messages";
 
 export default function AdminBikes() {
   const { token } = useAuth();
@@ -46,7 +47,7 @@ export default function AdminBikes() {
     <AdminLayout>
       <h1>Bicicletas</h1>
 
-      <table className="admin-table">
+      <table className="admin-table admin-table-bikes">
         <thead>
           <tr>
             <th>Foto</th>
@@ -95,7 +96,7 @@ export default function AdminBikes() {
       {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>¿Eliminar bicicleta?</h3>
+            <h3>{CONFIRM_DELETE_MESSAGE}</h3>
             <p>Esta acción no se puede deshacer.</p>
 
             <div className="modal-buttons">

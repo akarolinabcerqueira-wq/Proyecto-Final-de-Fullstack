@@ -14,6 +14,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
 import AdminBikes from "./pages/admin/AdminBikes";
 import useAuth from "./hooks/useAuth";
+import { Suspense } from "react";
+import Loading from "./components/Loading";
 
 function AdminRoute({ children }) {
   const { user } = useAuth();
@@ -45,68 +47,71 @@ function App() {
           },
         }}
       />
-
-      <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/bikes/:id" element={<BikeDetail />} />
-
-        <Route
-          path="/edit-bike/:id"
-          element={
-            <ProtectedRoute>
-              <EditBike />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/my-bikes"
-          element={
-            <ProtectedRoute>
-              <MyBikes />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/new-bike"
-          element={
-            <ProtectedRoute>
-              <NewBike />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <AdminDashboard />
-            </AdminRoute>
-          }
-        />
-
-        <Route
-          path="/admin/users"
-          element={
-            <AdminRoute>
-              <AdminUsers />
-            </AdminRoute>
-          }
-        />
-
-        <Route
-          path="/admin/bikes"
-          element={
-            <AdminRoute>
-              <AdminBikes />
-            </AdminRoute>
-          }
-        />
-      </Routes>
+      <Navbar />{" "}
+      <Suspense fallback={<Loading />}>
+        {" "}
+        <Routes>
+          {" "}
+          <Route path="/" element={<Home />} />{" "}
+          <Route path="/register" element={<Register />} />{" "}
+          <Route path="/login" element={<Login />} />{" "}
+          <Route path="/bikes/:id" element={<BikeDetail />} />{" "}
+          <Route
+            path="/edit-bike/:id"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <EditBike />{" "}
+              </ProtectedRoute>
+            }
+          />{" "}
+          <Route
+            path="/my-bikes"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <MyBikes />{" "}
+              </ProtectedRoute>
+            }
+          />{" "}
+          <Route
+            path="/new-bike"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <NewBike />{" "}
+              </ProtectedRoute>
+            }
+          />{" "}
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                {" "}
+                <AdminDashboard />{" "}
+              </AdminRoute>
+            }
+          />{" "}
+          <Route
+            path="/admin/users"
+            element={
+              <AdminRoute>
+                {" "}
+                <AdminUsers />{" "}
+              </AdminRoute>
+            }
+          />{" "}
+          <Route
+            path="/admin/bikes"
+            element={
+              <AdminRoute>
+                {" "}
+                <AdminBikes />{" "}
+              </AdminRoute>
+            }
+          />{" "}
+        </Routes>{" "}
+      </Suspense>{" "}
     </BrowserRouter>
   );
 }

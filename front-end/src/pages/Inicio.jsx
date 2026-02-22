@@ -1,10 +1,10 @@
 import "./Inicio.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getBikesRequest } from "../services/bike.service";
-import BikeCard from "../components/BikeCard";
-import FilterBar from "../components/FilterBar";
-import Footer from "../components/Footer";
+import { getBikesRequest } from "@/services/bike.service";
+import BikeCard from "@/components/BikeCard";
+import FilterBar from "@/components/FilterBar";
+import Footer from "@/components/Footer";
 
 export default function Inicio() {
   const [bikes, setBikes] = useState([]);

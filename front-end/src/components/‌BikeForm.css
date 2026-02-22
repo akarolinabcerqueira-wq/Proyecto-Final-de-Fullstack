@@ -1,16 +1,11 @@
 /* --- PAGE CONTAINER --- */
 .bike-form-container {
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-.bike-form-title {
-  color: #070338;
-  font-size: 2.4rem;
-  font-weight: 800;
-  margin-bottom: 2rem;
+  box-sizing: border-box;
 }
 
 /* --- FORM --- */
@@ -19,12 +14,12 @@
   flex-direction: column;
   gap: 1.2rem;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(7, 3, 56, 0.15);
-  color: #070338;
   background: #0d0a2b;
   border-radius: 20px;
   border: 2px solid #a60842b4;
+  box-shadow: 0 4px 20px rgba(7, 3, 56, 0.15);
+  box-sizing: border-box;
+  width: 100%;           
   margin: 0 auto;
 }
 
@@ -32,7 +27,6 @@
 .bike-form input,
 .bike-form select,
 .bike-form textarea {
-
   padding: 0.75rem 1rem;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -40,10 +34,8 @@
   background: #fafafa;
   color: #070338;
   transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.bike-form .form-group {
-  margin-bottom: 20px;
+  width: 100%;          
+  box-sizing: border-box;
 }
 
 .bike-form input:focus,
@@ -53,6 +45,51 @@
   box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.25);
   background: #fff;
   outline: none;
+}
+
+.bike-form .form-group {
+  margin-bottom: 20px;
+}
+
+/* --- FORM BUTTONS --- */
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.save-btn,
+.delete-btn {
+  flex: 1;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.save-btn {
+  background: #A60842;;
+  color: white;
+}
+
+.delete-btn {
+  background: #909090;
+  color: #1a1640;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+.delete-btn:hover {
+  background:#a9a9a9;
+  box-shadow: 0 0 12px#a9a9a9b6;
+  transform: translateY(-2px);
 }
 
 /* --- IMAGE GALLERY --- */
@@ -79,7 +116,6 @@
   object-fit: cover;
 }
 
-/* Delete button */
 .delete-image-btn {
   position: absolute;
   top: 6px;
@@ -102,7 +138,7 @@
   background: rgba(255, 0, 0, 0.8);
 }
 
-
+/* --- CHECKBOX --- */
 .checkbox-row {
   display: flex;
   align-items: center;
@@ -118,37 +154,12 @@
   margin: 0;
   cursor: pointer;
 }
-.form-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
 
-.save-btn {
-  background: #07C4D9;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.delete-btn {
-  background-color: #A60842;
-  color: white;
-  padding: 10px 18px;
- border: 1px solid #A60842;
-   border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-/* MODAL */
+/* --- MODAL --- */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -173,22 +184,53 @@
   margin-top: 1.5rem;
 }
 
-.confirm-delete {
-  background: #A60842;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
+.confirm-delete,
+.cancel-delete {
+   background: #909090;
+  color: #1a1640;
+  padding: 12px;
+  border-radius: 10px;
   font-weight: 700;
   cursor: pointer;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  transition: 0.2s ease;
 }
 
-.cancel-delete {
-  background: #444;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
+.confirm-delete { background: #A60842; }
+
+
+/* --- MOBILE --- */
+@media (max-width: 600px) {
+  .bike-form-container {
+    padding: .5rem; 
+     
+  }
+
+  .bike-form {
+    padding: 1.2rem; 
+  }
+
+  .form-buttons {
+    flex-direction: column; 
+  }
+
+  .save-btn,
+  .delete-btn {
+    width: 100%;
+  }
+
+  .image-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .confirm-delete,
+  .cancel-delete {
+    width: 100%;
+  }
 }

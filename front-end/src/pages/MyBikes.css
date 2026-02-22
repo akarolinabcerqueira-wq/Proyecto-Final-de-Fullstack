@@ -116,9 +116,12 @@
 }
 
 .status-badge.available {
-  background: #0388a6b8;
-  color: #070338;
+    background: #722944;
+  color: white;
+   font-size: 0.8rem;
+  font-weight: 600;
 }
+
 
 .status-badge.sold {
   background: rgba(151, 151, 151, 0.85);
@@ -166,7 +169,7 @@
 
 /* BUTTONS (same as global theme) */
 .btn-orange {
-  background: #07C4D9;
+  background:#A60842;
   color: #070338;
   padding: 12px;
   border-radius: 10px;
@@ -182,8 +185,8 @@
 }
 
 .btn-orange:hover {
-  background: #13daf0;
-  box-shadow: 0 0 18px #13daf097;
+  background: #bb0d4d;
+ box-shadow: 0 0 12px #a60842b4;
   transform: translateY(-2px);
 }
 
@@ -207,7 +210,7 @@
 }
 
 .btn-danger {
-  background: #A60842;
+  background: #909090;
   color: #1a1640;
   padding: 12px;
   border-radius: 10px;
@@ -220,8 +223,8 @@
 }
 
 .btn-danger:hover {
-  background: #bb0d4d;
-  box-shadow: 0 0 12px rgba(217, 83, 79, 0.5);
+  background:#a9a9a9;
+  box-shadow: 0 0 12px#a9a9a9b6;
   transform: translateY(-2px);
 }
 
@@ -263,7 +266,7 @@
 }
 
 .cancel-delete {
-  background: #444;
+   background: #909090;
   color: white;
   padding: 10px 18px;
   border-radius: 8px;

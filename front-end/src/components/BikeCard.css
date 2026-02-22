@@ -79,8 +79,8 @@
 
 /* AVAILABLE  */
 .status-badge.available {
-  background: #0388a6b8;
-  color: #070338;
+    background: #722944;
+  color: white;
    font-size: 0.8rem;
   font-weight: 600;
 }

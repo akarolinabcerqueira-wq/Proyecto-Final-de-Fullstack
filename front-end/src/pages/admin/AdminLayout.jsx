@@ -1,23 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./admin.css";
 
 export default function AdminLayout({ children }) {
+  const { pathname } = useLocation();
+
   return (
     <div className="admin-container">
-      <aside className="admin-sidebar">
-            <nav className="admin-nav">
-        <h2 className="admin-title">Admin</h2>
+      {/* TOP TABS */}
+      <nav className="admin-tabs">
+        <Link
+          to="/admin/users"
+          className={pathname.includes("/admin/users") ? "tab active" : "tab"}
+        >
+          Usuarios
+        </Link>
 
-    
-          <Link to="/admin">Dashboard</Link>
-          <Link to="/admin/users">Usuarios</Link>
-          <Link to="/admin/bikes">Bicicletas</Link>
-        </nav>
-      </aside>
+        <Link
+          to="/admin/bikes"
+          className={pathname.includes("/admin/bikes") ? "tab active" : "tab"}
+        >
+          Bicicletas
+        </Link>
+      </nav>
 
-      <main className="admin-content">
+      <div className="admin-content">
         {children}
-      </main>
+      </div>
     </div>
   );
 }
