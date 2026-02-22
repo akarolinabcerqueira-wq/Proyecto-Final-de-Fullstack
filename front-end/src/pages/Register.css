@@ -1,4 +1,6 @@
-/* PAGE BACKGROUND */
+/* --------------------------------------------------
+   CONTENEDOR PRINCIPAL
+-------------------------------------------------- */
 .register-container {
   width: 100%;
   min-height: 100vh;
@@ -9,7 +11,9 @@
   padding: 40px;
 }
 
-/* CARD */
+/* --------------------------------------------------
+   TARJETA DEL FORMULARIO
+-------------------------------------------------- */
 .register-card {
   background: #0d0a2b;
   padding: 40px 50px;
@@ -21,7 +25,9 @@
   text-align: center;
 }
 
-/* TITLE */
+/* --------------------------------------------------
+   TÍTULO
+-------------------------------------------------- */
 .register-title {
   color: white;
   font-size: 2rem;
@@ -29,14 +35,18 @@
   margin-bottom: 30px;
 }
 
-/* FORM */
+/* --------------------------------------------------
+   FORMULARIO
+-------------------------------------------------- */
 .register-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* INPUTS */
+/* --------------------------------------------------
+   CAMPOS DE TEXTO
+-------------------------------------------------- */
 .register-input {
   padding: 14px 16px;
   border-radius: 12px;
@@ -57,7 +67,9 @@
   box-shadow: 0 0 8px rgba(255, 102, 0, 0.5);
 }
 
-/* BUTTON */
+/* --------------------------------------------------
+   BOTÓN DE REGISTRO
+-------------------------------------------------- */
 .register-btn {
   width: 100%;
   padding: 14px;
@@ -67,14 +79,18 @@
   margin-top: 10px;
 }
 
-/* ERROR */
+/* --------------------------------------------------
+   MENSAJE DE ERROR
+-------------------------------------------------- */
 .register-error {
   color: #ff4444;
   margin-top: 10px;
   font-size: 0.95rem;
 }
 
-/* LOGIN LINK */
+/* --------------------------------------------------
+   ENLACE A LOGIN
+-------------------------------------------------- */
 .register-login {
   margin-top: 25px;
   color: white;

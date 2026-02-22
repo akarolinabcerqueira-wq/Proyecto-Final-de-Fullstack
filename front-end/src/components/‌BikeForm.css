@@ -1,4 +1,8 @@
-/* --- PAGE CONTAINER --- */
+/* ----------------------------------------------------------
+   CONTENEDOR PRINCIPAL DE LA PÁGINA DEL FORMULARIO
+   Centra el contenido y limita el ancho máximo para mantener
+   una estructura limpia y legible en pantallas grandes.
+----------------------------------------------------------- */
 .bike-form-container {
   max-width: 900px;
   width: 100%;
@@ -8,7 +12,12 @@
   box-sizing: border-box;
 }
 
-/* --- FORM --- */
+
+/* ----------------------------------------------------------
+   FORMULARIO PRINCIPAL
+   Estructura vertical, fondo oscuro, bordes redondeados y
+   sombra para destacar el formulario sobre el fondo.
+----------------------------------------------------------- */
 .bike-form {
   display: flex;
   flex-direction: column;
@@ -19,11 +28,16 @@
   border: 2px solid #a60842b4;
   box-shadow: 0 4px 20px rgba(7, 3, 56, 0.15);
   box-sizing: border-box;
-  width: 100%;           
+  width: 100%;
   margin: 0 auto;
 }
 
-/* Inputs */
+
+/* ----------------------------------------------------------
+   CAMPOS DEL FORMULARIO (inputs, selects, textarea)
+   Estilo uniforme para todos los campos, con borde suave,
+   fondo claro y transición al enfocar.
+----------------------------------------------------------- */
 .bike-form input,
 .bike-form select,
 .bike-form textarea {
@@ -34,10 +48,11 @@
   background: #fafafa;
   color: #070338;
   transition: border-color 0.2s, box-shadow 0.2s;
-  width: 100%;          
+  width: 100%;
   box-sizing: border-box;
 }
 
+/* Efecto visual al enfocar un campo */
 .bike-form input:focus,
 .bike-form select:focus,
 .bike-form textarea:focus {
@@ -47,11 +62,16 @@
   outline: none;
 }
 
+/* Separación entre grupos de campos */
 .bike-form .form-group {
   margin-bottom: 20px;
 }
 
-/* --- FORM BUTTONS --- */
+
+/* ----------------------------------------------------------
+   BOTONES DEL FORMULARIO (Guardar / Eliminar)
+   Distribución horizontal y estilos diferenciados.
+----------------------------------------------------------- */
 .form-buttons {
   display: flex;
   gap: 1rem;
@@ -68,11 +88,13 @@
   border: none;
 }
 
+/* Botón principal (Guardar) */
 .save-btn {
-  background: #A60842;;
+  background: #A60842;
   color: white;
 }
 
+/* Botón secundario (Eliminar) */
 .delete-btn {
   background: #909090;
   color: #1a1640;
@@ -80,19 +102,23 @@
   border-radius: 10px;
   font-weight: 700;
   cursor: pointer;
-  border: none;
   text-align: center;
   font-size: 1rem;
   transition: 0.2s ease;
 }
 
+/* Hover del botón eliminar */
 .delete-btn:hover {
-  background:#a9a9a9;
-  box-shadow: 0 0 12px#a9a9a9b6;
+  background: #a9a9a9;
+  box-shadow: 0 0 12px #a9a9a9b6;
   transform: translateY(-2px);
 }
 
-/* --- IMAGE GALLERY --- */
+
+/* ----------------------------------------------------------
+   GALERÍA DE IMÁGENES
+   Muestra las imágenes subidas en una cuadrícula adaptable.
+----------------------------------------------------------- */
 .image-gallery {
   margin-top: 2rem;
   display: grid;
@@ -100,6 +126,7 @@
   gap: 1rem;
 }
 
+/* Cada imagen dentro de la galería */
 .gallery-item {
   position: relative;
   width: 100%;
@@ -116,6 +143,7 @@
   object-fit: cover;
 }
 
+/* Botón para eliminar una imagen individual */
 .delete-image-btn {
   position: absolute;
   top: 6px;
@@ -138,7 +166,11 @@
   background: rgba(255, 0, 0, 0.8);
 }
 
-/* --- CHECKBOX --- */
+
+/* ----------------------------------------------------------
+   CHECKBOX DE "VENDIDA"
+   Alineación horizontal y estilo simple.
+----------------------------------------------------------- */
 .checkbox-row {
   display: flex;
   align-items: center;
@@ -155,7 +187,11 @@
   cursor: pointer;
 }
 
-/* --- MODAL --- */
+
+/* ----------------------------------------------------------
+   MODAL DE CONFIRMACIÓN (Eliminar bicicleta)
+   Fondo oscuro semitransparente + ventana centrada.
+----------------------------------------------------------- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -177,6 +213,7 @@
   max-width: 400px;
 }
 
+/* Botones dentro del modal */
 .modal-buttons {
   display: flex;
   justify-content: center;
@@ -186,7 +223,7 @@
 
 .confirm-delete,
 .cancel-delete {
-   background: #909090;
+  background: #909090;
   color: #1a1640;
   padding: 12px;
   border-radius: 10px;
@@ -198,22 +235,27 @@
   transition: 0.2s ease;
 }
 
-.confirm-delete { background: #A60842; }
+/* Botón rojo de confirmación */
+.confirm-delete {
+  background: #A60842;
+}
 
 
-/* --- MOBILE --- */
+/* ----------------------------------------------------------
+   RESPONSIVE (MÓVIL)
+   Ajustes para pantallas pequeñas: columnas, paddings y botones.
+----------------------------------------------------------- */
 @media (max-width: 600px) {
   .bike-form-container {
-    padding: .5rem; 
-     
+    padding: .5rem;
   }
 
   .bike-form {
-    padding: 1.2rem; 
+    padding: 1.2rem;
   }
 
   .form-buttons {
-    flex-direction: column; 
+    flex-direction: column;
   }
 
   .save-btn,

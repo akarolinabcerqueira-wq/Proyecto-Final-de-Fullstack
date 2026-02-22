@@ -1,10 +1,15 @@
+/* --------------------------------------------------
+   CONTENEDOR PRINCIPAL
+-------------------------------------------------- */
 .my-bikes-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 60px 40px;
 }
 
-/* GRID */
+/* --------------------------------------------------
+   GRID DE TARJETAS
+-------------------------------------------------- */
 .my-bikes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -14,7 +19,9 @@
   margin: 0 auto;
 }
 
-/* CARD */
+/* --------------------------------------------------
+   TARJETA DE BICICLETA
+-------------------------------------------------- */
 .my-bike-card {
   background: #0d0a2b;
   border-radius: 20px;
@@ -32,7 +39,9 @@
   box-shadow: 0 15px 30px rgba(4, 0, 255, 0.076);
 }
 
-/* IMAGE WRAPPER */
+/* --------------------------------------------------
+   IMAGEN PRINCIPAL
+-------------------------------------------------- */
 .my-bike-image-wrapper {
   position: relative;
   width: 100%;
@@ -42,7 +51,6 @@
   border-radius: 18px;
 }
 
-/* IMAGE */
 .my-bike-image {
   width: 100%;
   height: 100%;
@@ -61,7 +69,9 @@
   transform: scale(1.08);
 }
 
-/* SWIPER ARROWS */
+/* --------------------------------------------------
+   FLECHAS DEL SWIPER
+-------------------------------------------------- */
 .arrow {
   position: absolute;
   top: 50%;
@@ -70,7 +80,6 @@
   border: 2px solid #a60842b4;
   color: white;
   font-size: 1.6rem;
-  line-height: 1;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -95,12 +104,14 @@
   right: 10px;
 }
 
-/* SHOW ARROWS ON HOVER */
+/* Mostrar flechas al hacer hover */
 .my-bike-image-wrapper:hover .arrow {
   display: flex;
 }
 
-/* STATUS BADGE — SAME AS BIKECARD */
+/* --------------------------------------------------
+   ESTADO (DISPONIBLE / VENDIDA)
+-------------------------------------------------- */
 .status-badge {
   position: absolute;
   top: 12px;
@@ -111,24 +122,22 @@
   font-weight: 600;
   color: white;
   backdrop-filter: blur(4px);
-  letter-spacing: 0.5px;
   z-index: 5;
 }
 
 .status-badge.available {
-    background: #722944;
+  background: #722944;
   color: white;
-   font-size: 0.8rem;
-  font-weight: 600;
 }
-
 
 .status-badge.sold {
   background: rgba(151, 151, 151, 0.85);
   color: #070338;
 }
 
-/* INFO */
+/* --------------------------------------------------
+   INFORMACIÓN DE LA BICI
+-------------------------------------------------- */
 .my-bike-info {
   padding: 22px;
 }
@@ -147,7 +156,9 @@
   margin-bottom: 16px;
 }
 
-/* ACTION BUTTONS */
+/* --------------------------------------------------
+   BOTONES DE ACCIÓN
+-------------------------------------------------- */
 .my-bike-actions {
   display: flex;
   flex-direction: column;
@@ -159,7 +170,7 @@
   gap: 12px;
 }
 
-.my-bike-actions .row>* {
+.my-bike-actions .row > * {
   flex: 1;
 }
 
@@ -167,9 +178,11 @@
   width: 100%;
 }
 
-/* BUTTONS (same as global theme) */
+/* --------------------------------------------------
+   BOTONES (ESTILO GLOBAL)
+-------------------------------------------------- */
 .btn-orange {
-  background:#A60842;
+  background: #A60842;
   color: #070338;
   padding: 12px;
   border-radius: 10px;
@@ -186,7 +199,6 @@
 
 .btn-orange:hover {
   background: #bb0d4d;
- box-shadow: 0 0 12px #a60842b4;
   transform: translateY(-2px);
 }
 
@@ -223,11 +235,13 @@
 }
 
 .btn-danger:hover {
-  background:#a9a9a9;
-  box-shadow: 0 0 12px#a9a9a9b6;
+  background: #a9a9a9;
   transform: translateY(-2px);
 }
 
+/* --------------------------------------------------
+   MODAL DE CONFIRMACIÓN
+-------------------------------------------------- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -266,7 +280,7 @@
 }
 
 .cancel-delete {
-   background: #909090;
+  background: #909090;
   color: white;
   padding: 10px 18px;
   border-radius: 8px;

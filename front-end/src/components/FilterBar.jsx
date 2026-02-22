@@ -1,12 +1,22 @@
 import { useState } from "react";
 
+/**
+ * Barra de filtros para la página de bicicletas.
+ * Permite filtrar por categoría, marca, estado (vendida/disponible)
+ * y rango de precios. Envía los filtros al componente padre mediante onFilter().
+ */
 const FilterBar = ({ onFilter }) => {
+  // Estados individuales para cada filtro
   const [brand, setBrand] = useState("");
   const [sold, setSold] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [category, setCategory] = useState("");
 
+  /**
+   * Opciones de marcas agrupadas por categoría.
+   * Se usan para mostrar solo las marcas relevantes según el filtro.
+   */
   const brandOptions = {
     mountain: ["Trek", "Specialized", "Giant", "Cannondale", "Scott"],
     road: ["Canyon", "Bianchi", "Pinarello", "Colnago", "Wilier"],
@@ -18,9 +28,16 @@ const FilterBar = ({ onFilter }) => {
     other: ["Otra / No conocida"],
   };
 
-const allBrands = [...new Set(Object.values(brandOptions).flat())];
+  // Lista completa de marcas sin duplicados
+  const allBrands = [...new Set(Object.values(brandOptions).flat())];
+
+  // Marcas que se muestran según la categoría seleccionada
   const brandsToShow = category ? brandOptions[category] : allBrands;
 
+  /**
+   * Envía los filtros seleccionados al componente padre.
+   * Se ejecuta al enviar el formulario.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -35,7 +52,7 @@ const allBrands = [...new Set(Object.values(brandOptions).flat())];
 
   return (
     <form className="filter-bar" onSubmit={handleSubmit}>
-      {/* CATEGORY */}
+      {/* FILTRO: CATEGORÍA */}
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
@@ -51,7 +68,7 @@ const allBrands = [...new Set(Object.values(brandOptions).flat())];
         <option value="kids">Infantil</option>
       </select>
 
-      {/* BRAND */}
+      {/* FILTRO: MARCA (dinámico según categoría) */}
       <select
         value={brand}
         onChange={(e) => setBrand(e.target.value)}
@@ -68,14 +85,14 @@ const allBrands = [...new Set(Object.values(brandOptions).flat())];
         <option value="Other">Otra / No conocida</option>
       </select>
 
+      {/* FILTRO: ESTADO (vendida / disponible) */}
       <select value={sold} onChange={(e) => setSold(e.target.value)}>
-        {" "}
-        <option value="">Todas</option>{" "}
-        <option value="false">Disponibles</option>{" "}
-        <option value="true">Vendidas</option>{" "}
+        <option value="">Todas</option>
+        <option value="false">Disponibles</option>
+        <option value="true">Vendidas</option>
       </select>
 
-      {/* PRICE RANGE */}
+      {/* FILTRO: PRECIO MÍNIMO */}
       <input
         type="number"
         placeholder="Precio mínimo"
@@ -83,6 +100,7 @@ const allBrands = [...new Set(Object.values(brandOptions).flat())];
         onChange={(e) => setMinPrice(e.target.value)}
       />
 
+      {/* FILTRO: PRECIO MÁXIMO */}
       <input
         type="number"
         placeholder="Precio máximo"
@@ -90,6 +108,7 @@ const allBrands = [...new Set(Object.values(brandOptions).flat())];
         onChange={(e) => setMaxPrice(e.target.value)}
       />
 
+      {/* BOTÓN DE FILTRAR */}
       <button type="submit" className="filter-btn-submit">
         Filtrar
       </button>

@@ -1,22 +1,26 @@
-
+/* --------------------------------------------------
+   ESTILOS GENERALES DE LA PÁGINA
+-------------------------------------------------- */
 body {
   margin: 0;
   background: #f5f5f5;
   color: #070338;
 }
 
+/* Contenedor principal del contenido */
 main {
   max-width: 1100px;
   margin: 0 auto;
-
 }
 
+/* Secciones con fondo blanco y padding */
 section {
   background: white;
   padding: 1.5rem;
   border-radius: 6px;
 }
 
+/* Títulos sin margen superior */
 h1 {
   margin-top: 0;
 }

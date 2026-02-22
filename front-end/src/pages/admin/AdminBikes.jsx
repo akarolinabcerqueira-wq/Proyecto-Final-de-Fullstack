@@ -12,12 +12,15 @@ import { CONFIRM_DELETE_MESSAGE } from "@/constants/messages";
 
 export default function AdminBikes() {
   const { token } = useAuth();
+
+  // Lista de bicicletas
   const [bikes, setBikes] = useState([]);
 
+  // Estado del modal de eliminación
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [bikeToDelete, setBikeToDelete] = useState(null);
 
-  // 🔥 Helper to sanitize image URLs
+  // Imagen segura para evitar URLs vacías o inválidas
   const getSafeImage = (img) => {
     if (!img) return "/images/placeholder-bike.jpg";
     if (img === "undefined") return "/images/placeholder-bike.jpg";
@@ -26,10 +29,12 @@ export default function AdminBikes() {
     return img;
   };
 
+  // Cargar bicicletas al entrar en la página
   useEffect(() => {
     getBikesRequest().then(setBikes);
   }, []);
 
+  // Confirmar eliminación
   const confirmDelete = async () => {
     try {
       await deleteBikeRequest(bikeToDelete, token);
@@ -47,6 +52,7 @@ export default function AdminBikes() {
     <AdminLayout>
       <h1>Bicicletas</h1>
 
+      {/* Tabla de bicicletas */}
       <table className="admin-table admin-table-bikes">
         <thead>
           <tr>
@@ -93,6 +99,7 @@ export default function AdminBikes() {
         </tbody>
       </table>
 
+      {/* Modal de confirmación */}
       {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">

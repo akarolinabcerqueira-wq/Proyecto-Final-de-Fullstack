@@ -1,15 +1,18 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-/* =====================
-   PUBLIC
-===================== */
+/* ==================================================
+   BICICLETAS PÚBLICAS (SIN AUTENTICACIÓN)
+================================================== */
 
+/* Obtener bicicletas con filtros opcionales */
 export const getBikesRequest = async (filters = {}) => {
+  // Eliminar filtros vacíos
   const cleanFilters = Object.fromEntries(
     Object.entries(filters).filter(
-      ([_, v]) => v !== "" && v !== null && v !== undefined,
-    ),
+      ([_, v]) => v !== "" && v !== null && v !== undefined
+    )
   );
+
   const params = new URLSearchParams(cleanFilters).toString();
 
   const response = await fetch(`${API_URL}/bikes?${params}`);
@@ -22,6 +25,7 @@ export const getBikesRequest = async (filters = {}) => {
   return data;
 };
 
+/* Obtener una bicicleta por ID */
 export const getBikeByIdRequest = async (id) => {
   const response = await fetch(`${API_URL}/bikes/${id}`);
   const data = await response.json();
@@ -33,10 +37,11 @@ export const getBikeByIdRequest = async (id) => {
   return data;
 };
 
-/* =====================
-   PRIVATE (AUTH)
-===================== */
+/* ==================================================
+   BICICLETAS PRIVADAS (REQUIERE TOKEN)
+================================================== */
 
+/* Obtener bicicletas del usuario autenticado */
 export const getMyBikesRequest = async (token) => {
   const response = await fetch(`${API_URL}/bikes/mine`, {
     headers: {
@@ -52,6 +57,8 @@ export const getMyBikesRequest = async (token) => {
 
   return data;
 };
+
+/* Eliminar una bicicleta */
 export const deleteBikeRequest = async (id, token) => {
   const response = await fetch(`${API_URL}/bikes/${id}`, {
     method: "DELETE",
@@ -65,6 +72,7 @@ export const deleteBikeRequest = async (id, token) => {
   }
 };
 
+/* Cambiar estado Vendida/Disponible */
 export const toggleSoldRequest = async (id, token) => {
   const res = await fetch(`${API_URL}/bikes/${id}/toggle-sold`, {
     method: "PATCH",
@@ -80,6 +88,7 @@ export const toggleSoldRequest = async (id, token) => {
   return data;
 };
 
+/* Crear una bicicleta nueva */
 export const createBikeRequest = async (payload, token) => {
   const response = await fetch(`${API_URL}/bikes`, {
     method: "POST",
@@ -90,7 +99,6 @@ export const createBikeRequest = async (payload, token) => {
     body: JSON.stringify(payload),
   });
 
-
   const data = await response.json();
 
   if (!response.ok) {
@@ -100,13 +108,14 @@ export const createBikeRequest = async (payload, token) => {
   return data;
 };
 
+/* Actualizar una bicicleta existente */
 export const updateBikeRequest = async (id, formData, token) => {
   const response = await fetch(`${API_URL}/bikes/${id}`, {
     method: "PUT",
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-    body: formData
+    body: formData, // FormData → no se envía JSON
   });
 
   const data = await response.json();

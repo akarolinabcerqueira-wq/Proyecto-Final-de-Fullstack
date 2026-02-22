@@ -11,11 +11,19 @@ import Footer from "@/components/Footer";
 import toast from "react-hot-toast";
 
 const EditBike = () => {
+  // ID de la bici desde la URL
   const { id } = useParams();
+
+  // Token del usuario autenticado
   const { token } = useAuth();
+
+  // Navegación programática
   const navigate = useNavigate();
+
+  // Datos de la bici a editar
   const [bike, setBike] = useState(null);
 
+  // Cargar datos de la bici al montar el componente
   useEffect(() => {
     const loadBike = async () => {
       const data = await getBikeByIdRequest(id);
@@ -25,6 +33,7 @@ const EditBike = () => {
     loadBike();
   }, [id]);
 
+  // Actualizar bici
   const handleUpdate = async (formData) => {
     try {
       await updateBikeRequest(id, formData, token);
@@ -35,6 +44,7 @@ const EditBike = () => {
     }
   };
 
+  // Eliminar bici
   const handleDelete = async () => {
     try {
       await deleteBikeRequest(id, token);
@@ -45,6 +55,7 @@ const EditBike = () => {
     }
   };
 
+  // Estado de carga
   if (!bike) return <p>Cargando...</p>;
 
   return (
@@ -52,7 +63,7 @@ const EditBike = () => {
       <section className="bike-form-container">
         <h1 className="bike-form-title">Editar bicicleta</h1>
 
-        {/* HERE is where you pass onDelete */}
+        {/* Formulario reutilizable con acciones de actualizar y eliminar */}
         <BikeForm
           initialData={bike}
           onSubmit={handleUpdate}

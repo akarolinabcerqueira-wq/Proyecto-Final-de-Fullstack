@@ -1,4 +1,6 @@
-/* GLOBAL */
+/* --------------------------------------------------
+   CONTENEDOR GENERAL DE LA PÁGINA
+-------------------------------------------------- */
 .inicio-container {
   width: 100%;
   min-height: 100vh;
@@ -6,7 +8,9 @@
   color: #070338;
 }
 
-/* HERO BANNER */
+/* --------------------------------------------------
+   HERO / BANNER PRINCIPAL
+-------------------------------------------------- */
 .hero-banner {
   width: 100%;
   height: 70vh;
@@ -16,6 +20,7 @@
   position: relative;
 }
 
+/* Capa oscura sobre la imagen */
 .hero-overlay {
   width: 100%;
   height: 100%;
@@ -25,9 +30,9 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-
 }
 
+/* Título principal */
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
@@ -36,9 +41,10 @@
 }
 
 .hero-title span {
-  color:  #070338;
+  color: #070338;
 }
 
+/* Subtítulo */
 .hero-subtitle {
   font-size: 1.2rem;
   opacity: 0.9;
@@ -46,12 +52,16 @@
   color: white;
 }
 
+/* Botones del hero */
 .hero-buttons {
   display: flex;
   gap: 20px;
   justify-content: center;
 }
 
+/* --------------------------------------------------
+   BOTONES PRINCIPALES
+-------------------------------------------------- */
 .btn-primary,
 .btn-secondary {
   padding: 12px 28px;
@@ -62,7 +72,7 @@
   transition: 0.2s ease;
 }
 
-/* ORANGE BUTTON */
+/* Botón principal */
 .btn-primary {
   background: #A60842;
   color: #070338;
@@ -72,7 +82,7 @@
   background: #bb0d4d;
 }
 
-/* OUTLINE BUTTON */
+/* Botón secundario */
 .btn-secondary {
   background: #070338;
   color: white;
@@ -82,21 +92,23 @@
   background: #0c0554;
 }
 
-/* PAGE LAYOUT */
+/* --------------------------------------------------
+   SECCIÓN DE BICIS DESTACADAS
+-------------------------------------------------- */
 .featured {
   padding: 60px 40px;
-  /* space around the whole section */
   max-width: 1400px;
   margin: 0 auto;
-  /* center the content */
 }
 
-/* FILTER BAR SPACING */
+/* Espaciado del filtro */
 .filter-bar-wrapper {
   margin-bottom: 40px;
 }
 
-/* BIKE GRID */
+/* --------------------------------------------------
+   GRID DE BICICLETAS
+-------------------------------------------------- */
 .bike-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -120,7 +132,9 @@
   margin-bottom: 20px;
 }
 
-/* FILTER BAR */
+/* --------------------------------------------------
+   BARRA DE FILTROS
+-------------------------------------------------- */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -133,7 +147,7 @@
   margin-bottom: 40px;
 }
 
-/* INPUTS & SELECTS */
+/* Inputs y selects */
 .filter-bar input,
 .filter-bar select {
   padding: 12px 16px;
@@ -157,7 +171,7 @@
   box-shadow: 0 0 8px rgba(255, 102, 0, 0.5);
 }
 
-/* SUBMIT BUTTON */
+/* Botón de aplicar filtros */
 .filter-btn-submit {
   padding: 12px 24px;
   border-radius: 10px;
@@ -175,6 +189,7 @@
   transform: translateY(-3px);
 }
 
+/* Select de marcas */
 .brand-select {
   padding: 12px 16px;
   border-radius: 10px;

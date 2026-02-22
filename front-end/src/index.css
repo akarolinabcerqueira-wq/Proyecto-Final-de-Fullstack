@@ -1,22 +1,38 @@
+/* --------------------------------------------------
+   TIPOGRAFÍA GLOBAL
+-------------------------------------------------- */
+
+/* Importar fuente Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+/* Configuración base de tipografía y renderizado */
 :root {
-font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-family: "Inter", sans-serif !important;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body, * { font-family: "Inter", sans-serif !important; }
-a, .btn-orange, .btn-dark, .btn-danger, .btn-view { font-family: inherit !important; }
+/* Forzar Inter en todo el proyecto */
+html, body, * {
+  font-family: "Inter", sans-serif !important;
+}
 
+/* Asegurar herencia en botones y enlaces */
+a,
+.btn-orange,
+.btn-dark,
+.btn-danger,
+.btn-view {
+  font-family: inherit !important;
+}
 
+/* Estilo base de títulos */
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color:#070338; ;
+  color: #070338;
 }
-

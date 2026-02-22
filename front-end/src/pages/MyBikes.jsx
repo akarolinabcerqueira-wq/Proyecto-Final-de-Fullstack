@@ -11,13 +11,20 @@ import "./MyBikes.css";
 import { CONFIRM_DELETE_MESSAGE } from "@/constants/messages";
 
 const MyBikes = () => {
+  // Token del usuario autenticado
   const { token } = useAuth();
+
+  // Lista de bicicletas del usuario
   const [bikes, setBikes] = useState([]);
+
+  // Manejo de errores
   const [error, setError] = useState(null);
 
+  // Estado del modal de eliminación
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [bikeToDelete, setBikeToDelete] = useState(null);
 
+  // Cargar bicicletas del usuario
   const loadBikes = async () => {
     try {
       const data = await getMyBikesRequest(token);
@@ -27,15 +34,18 @@ const MyBikes = () => {
     }
   };
 
+  // Cargar al montar el componente
   useEffect(() => {
     loadBikes();
   }, []);
 
+  // Abrir modal de confirmación
   const openDeleteModal = (id) => {
     setBikeToDelete(id);
     setShowDeleteModal(true);
   };
 
+  // Confirmar eliminación
   const confirmDelete = async () => {
     try {
       await deleteBikeRequest(bikeToDelete, token);
@@ -47,7 +57,9 @@ const MyBikes = () => {
     }
   };
 
+  // Cambiar estado Vendida/Disponible
   const handleToggleSold = async (id) => {
+    // Optimistic UI
     setBikes((prev) =>
       prev.map((bike) =>
         bike._id === id ? { ...bike, sold: !bike.sold } : bike
@@ -58,7 +70,7 @@ const MyBikes = () => {
       await toggleSoldRequest(id, token);
     } catch (err) {
       toast.error("Error al actualizar estado");
-      loadBikes();
+      loadBikes(); // Revertir si falla
     }
   };
 
@@ -66,12 +78,13 @@ const MyBikes = () => {
     <section className="my-bikes-container">
       <h1>Mis bicicletas</h1>
 
+      {/* Mensajes de estado */}
       {error && <p>{error}</p>}
       {bikes.length === 0 && <p>No tienes bicicletas publicadas</p>}
 
+      {/* Grid de tarjetas */}
       <div className="my-bikes-grid">
         {bikes.map((bike) => (
-          
           <MyBikeCard
             key={bike._id}
             bike={bike}
@@ -81,7 +94,7 @@ const MyBikes = () => {
         ))}
       </div>
 
-      {/* DELETE MODAL */}
+      {/* MODAL DE ELIMINACIÓN */}
       {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">

@@ -1,11 +1,11 @@
 /* --------------------------------------------------
-   LAYOUT
+   LAYOUT GENERAL DEL PANEL ADMIN
 -------------------------------------------------- */
 .admin-container {
   min-height: calc(100vh - 70px);
   background: white;
   color: #14112f;
-  /* ✅ Fixed: was "white on white" for page-level text */
+  /* Texto visible sobre fondo claro */
 }
 
 .admin-content {
@@ -14,7 +14,7 @@
 
 .admin-content h1 {
   color: #A60842;
-  /* ✅ Fixed: h1 was invisible */
+  /* Color corporativo */
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
 }
@@ -32,7 +32,7 @@
 }
 
 /* --------------------------------------------------
-   TOP TABS NAVIGATION
+   NAVEGACIÓN SUPERIOR (TABS)
 -------------------------------------------------- */
 .admin-tabs {
   display: flex;
@@ -52,11 +52,7 @@
   font-weight: 600;
 }
 
-.admin-tabs .tab:hover {
-  background: #A60842;
-  color: white;
-}
-
+.admin-tabs .tab:hover,
 .admin-tabs .active {
   background: #A60842;
   color: white;
@@ -77,7 +73,7 @@
 }
 
 /* --------------------------------------------------
-   TABLE
+   TABLA PRINCIPAL
 -------------------------------------------------- */
 .admin-table {
   width: 100%;
@@ -92,7 +88,6 @@
   padding: 1rem;
   border-bottom: 1px solid #2a2647;
   color: white;
-
 }
 
 .admin-table th {
@@ -100,13 +95,16 @@
   text-align: left;
   font-weight: 600;
 }
+
 .admin-table tr {
   background: #0d0a2b;
 }
+
 .admin-table tr:hover {
   background: #1f1a40;
 }
 
+/* Miniatura de imagen */
 .admin-thumb {
   width: 70px;
   height: 70px;
@@ -114,17 +112,16 @@
   border-radius: 6px;
   border: 2px solid #A60842;
   display: block;
-
 }
 
 /* --------------------------------------------------
-   BUTTONS
+   BOTONES
 -------------------------------------------------- */
 .edit-btn,
 .danger-btn,
 .confirm-delete,
 .cancel-delete {
-     background: #909090;
+  background: #909090;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   border: none;
@@ -134,29 +131,31 @@
   font-size: 1rem;
 }
 
-.edit-btn, .confirm-delete {
+/* Botones principales */
+.edit-btn,
+.confirm-delete {
   background: #A60842;
-  text-decoration: none;
   margin-right: 0.5rem;
   display: inline-block;
+  text-decoration: none;
 }
 
-
-.edit-btn,
+.edit-btn:hover,
 .confirm-delete:hover {
   background: #bb0d4d;
 }
 
-.danger-btn
- {
-   background: #909090;
+/* Botón gris (acciones secundarias) */
+.danger-btn {
+  background: #909090;
   color: #1a1640;
 }
 
-.danger-btn:hover:hover {
-   background:#a9a9a9;
+.danger-btn:hover {
+  background: #a9a9a9;
 }
 
+/* Botón cancelar */
 .cancel-delete {
   background: #444;
 }
@@ -166,7 +165,7 @@
 }
 
 /* --------------------------------------------------
-   MODAL
+   MODAL DE CONFIRMACIÓN
 -------------------------------------------------- */
 .modal-overlay {
   position: fixed;
@@ -211,10 +210,11 @@
 }
 
 /* --------------------------------------------------
-   RESPONSIVE TABLE → CARDS
+   TABLA RESPONSIVE → TARJETAS EN MÓVIL
 -------------------------------------------------- */
 @media (max-width: 650px) {
 
+  /* Convertir tabla en bloques */
   .admin-table,
   .admin-table thead,
   .admin-table tbody,
@@ -246,11 +246,11 @@
     color: white;
   }
 
+  /* Etiquetas de cada celda */
   .admin-table td::before {
     content: attr(data-label);
     font-weight: 600;
     color: #A60842;
-    flex-shrink: 0;
   }
 
   .admin-thumb {
@@ -258,7 +258,7 @@
     height: 80px;
   }
 
-  /* Action cell: wrap buttons side by side, full width */
+  /* Acciones en móvil */
   .admin-table td[data-label="Acciones"] {
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -275,8 +275,10 @@
     text-align: center;
     margin: 0;
     min-width: 80px;
+
   }
 
+  /* Ajustes específicos para tablas de usuarios y bicis */
   .admin-table-users tr,
   .admin-table-bikes tr {
     display: block;
@@ -287,34 +289,20 @@
     border: 2px solid #1b1738;
   }
 
-  .admin-table-users td {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.6rem 0;
-    border: none;
-  }
-
+  .admin-table-users td,
   .admin-table-bikes td {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 0.6rem 0;
     border: none;
     gap: 1rem;
   }
 
-  .admin-table-users td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #A60842;
-    margin-right: 1rem;
-  }
-
+  .admin-table-users td::before,
   .admin-table-bikes td::before {
     content: attr(data-label);
     font-weight: 600;
     color: #A60842;
-    margin-right: 1rem;
   }
 
   .admin-table-bikes .admin-thumb {

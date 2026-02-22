@@ -2,11 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 import "./admin.css";
 
 export default function AdminLayout({ children }) {
+  // Ruta actual para marcar la pestaña activa
   const { pathname } = useLocation();
 
   return (
     <div className="admin-container">
-      {/* TOP TABS */}
+      {/* Navegación superior del panel admin */}
       <nav className="admin-tabs">
         <Link
           to="/admin/users"
@@ -23,6 +24,7 @@ export default function AdminLayout({ children }) {
         </Link>
       </nav>
 
+      {/* Contenido dinámico según la sección */}
       <div className="admin-content">
         {children}
       </div>

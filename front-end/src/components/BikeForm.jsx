@@ -4,6 +4,10 @@ import { uploadImage } from "../utils/uploadImage";
 import { compressImage } from "../utils/compressImage";
 import { CONFIRM_DELETE_MESSAGE } from "@/constants/messages";
 
+/**
+ * Opciones de marcas según categoría.
+ * Se usa para filtrar dinámicamente las marcas disponibles.
+ */
 const brandOptions = {
   mountain: ["Trek", "Specialized", "Giant", "Cannondale", "Scott"],
   road: ["Canyon", "Bianchi", "Pinarello", "Colnago", "Wilier"],
@@ -15,19 +19,27 @@ const brandOptions = {
   other: ["Otra / No conocida"],
 };
 
+// Lista completa de marcas (sin duplicados)
 const allBrands = [...new Set(Object.values(brandOptions).flat())];
 
+/**
+ * Formulario reutilizable para crear o editar bicicletas.
+ * Maneja inputs, subida de imágenes, vista previa, modal de eliminación
+ * y validación básica.
+ */
 const BikeForm = ({
   initialData = {},
   onSubmit,
   onDelete,
   loading = false,
 }) => {
+  // Determina si estamos editando una bici existente
   const isEditing = Boolean(initialData && initialData._id);
 
-  // ✅ MUST BE INSIDE THE COMPONENT
+  // Controla la visibilidad del modal de confirmación de eliminación
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  // Estado principal del formulario
   const [formData, setFormData] = useState({
     title: initialData.title || "",
     category: initialData.category || "",
@@ -39,10 +51,14 @@ const BikeForm = ({
     sold: initialData.sold ?? false,
   });
 
+  // Marcas filtradas según categoría seleccionada
   const brandsToShow = formData.category
     ? brandOptions[formData.category]
     : allBrands;
 
+  /**
+   * Maneja cambios en inputs de texto, select y textarea.
+   */
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -50,26 +66,43 @@ const BikeForm = ({
     });
   };
 
+  /**
+   * Maneja la subida de imágenes:
+   * 1. Muestra vista previa inmediata
+   * 2. Comprime imágenes
+   * 3. Sube a Cloudinary
+   * 4. Guarda URLs finales en el estado
+   */
   const handleFilesChange = async (e) => {
-  const newFiles = Array.from(e.target.files);
+    const newFiles = Array.from(e.target.files);
 
-  // Show previews immediately
-  setFormData((prev) => ({
-    ...prev,
-    images: [...prev.images, ...newFiles.map((f) => URL.createObjectURL(f))],
-  }));
+    // Vista previa inmediata
+    setFormData((prev) => ({
+      ...prev,
+      images: [...prev.images, ...newFiles.map((f) => URL.createObjectURL(f))],
+    }));
 
- const uploadedUrls = await Promise.all( newFiles.map(async (file) => { const compressed = await compressImage(file); return uploadImage(compressed); }) );
+    // Subida real a Cloudinary
+    const uploadedUrls = await Promise.all(
+      newFiles.map(async (file) => {
+        const compressed = await compressImage(file);
+        return uploadImage(compressed);
+      })
+    );
 
+    // Reemplaza las previews temporales por URLs reales
+    setFormData((prev) => ({
+      ...prev,
+      images: [
+        ...prev.images.filter((img) => typeof img === "string"),
+        ...uploadedUrls,
+      ],
+    }));
+  };
 
-  setFormData((prev) => ({
-    ...prev,
-    images: [
-      ...prev.images.filter((img) => typeof img === "string"),
-      ...uploadedUrls,
-    ],
-  }));
-};
+  /**
+   * Elimina una imagen del array según su índice.
+   */
   const handleDeleteImage = (index) => {
     setFormData((prev) => ({
       ...prev,
@@ -77,25 +110,29 @@ const BikeForm = ({
     }));
   };
 
+  /**
+   * Envía los datos del formulario al componente padre.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
 
-const payload = {
-  title: formData.title,
-  category: formData.category,
-  brand: formData.brand,
-  model: formData.model,
-  price: formData.price,
-  description: formData.description,
-  sold: formData.sold,
-  images: formData.images, 
-};
+    const payload = {
+      title: formData.title,
+      category: formData.category,
+      brand: formData.brand,
+      model: formData.model,
+      price: formData.price,
+      description: formData.description,
+      sold: formData.sold,
+      images: formData.images,
+    };
 
-onSubmit(payload);
-  }
+    onSubmit(payload);
+  };
 
   return (
     <div className="bike-form-container">
+      {/* FORMULARIO PRINCIPAL */}
       <form className="bike-form" onSubmit={handleSubmit}>
         <input
           name="title"
@@ -105,6 +142,7 @@ onSubmit(payload);
           required
         />
 
+        {/* CATEGORÍA */}
         <select
           name="category"
           value={formData.category}
@@ -122,6 +160,7 @@ onSubmit(payload);
           <option value="other">Otra</option>
         </select>
 
+        {/* MARCA */}
         <select
           name="brand"
           value={formData.brand}
@@ -136,6 +175,7 @@ onSubmit(payload);
           ))}
         </select>
 
+        {/* MODELO */}
         <input
           name="model"
           placeholder="Modelo"
@@ -144,6 +184,7 @@ onSubmit(payload);
           required
         />
 
+        {/* PRECIO */}
         <input
           name="price"
           type="number"
@@ -153,6 +194,7 @@ onSubmit(payload);
           required
         />
 
+        {/* DESCRIPCIÓN */}
         <textarea
           name="description"
           placeholder="Descripción de la bicicleta"
@@ -161,6 +203,7 @@ onSubmit(payload);
           required
         />
 
+        {/* SUBIDA DE IMÁGENES */}
         <input
           type="file"
           name="images"
@@ -169,6 +212,7 @@ onSubmit(payload);
           accept="image/*"
         />
 
+        {/* CHECKBOX "VENDIDA" (solo en edición) */}
         {isEditing && (
           <label className="checkbox-row">
             <input
@@ -183,7 +227,7 @@ onSubmit(payload);
           </label>
         )}
 
-        {/* BUTTONS */}
+        {/* BOTONES DEL FORMULARIO */}
         <div className="form-buttons">
           <button type="submit" className="save-btn" disabled={loading}>
             {loading ? "Subiendo..." : "Guardar"}
@@ -201,7 +245,7 @@ onSubmit(payload);
         </div>
       </form>
 
-      {/* DELETE MODAL */}
+      {/* MODAL DE CONFIRMACIÓN DE ELIMINACIÓN */}
       {showDeleteModal && (
         <div className="modal-overlay">
           <div className="modal">
@@ -224,11 +268,12 @@ onSubmit(payload);
         </div>
       )}
 
-      {/* IMAGE GALLERY */}
+      {/* GALERÍA DE IMÁGENES SUBIDAS */}
       <div className="image-gallery">
         {formData.images.map((img, idx) => {
           const isFile = img instanceof File;
           const src = isFile ? URL.createObjectURL(img) : img;
+
           return (
             <div className="gallery-item" key={idx}>
               <img src={src} alt={`preview-${idx}`} />

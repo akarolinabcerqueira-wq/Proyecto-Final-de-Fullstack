@@ -1,3 +1,8 @@
+/* ----------------------------------------------------------
+   NAVBAR PRINCIPAL
+   Barra superior fija con fondo oscuro, sombra y borde inferior.
+   Se mantiene visible al hacer scroll gracias a position: sticky.
+----------------------------------------------------------- */
 nav {
   background: #070338;
   padding: 16px 40px;
@@ -11,21 +16,28 @@ nav {
   z-index: 16;
 }
 
-/* LEFT SIDE */
+/* ----------------------------------------------------------
+   LADO IZQUIERDO (LOGO / NOMBRE)
+----------------------------------------------------------- */
 .nav-left a {
   font-size: 1.4rem;
   font-weight: 800;
   text-decoration: none;
 }
 
-/* RIGHT SIDE */
+/* ----------------------------------------------------------
+   LADO DERECHO (ENLACES)
+   Distribución horizontal de los enlaces en pantallas grandes.
+----------------------------------------------------------- */
 .nav-right {
   display: flex;
   gap: 24px;
   align-items: center;
 }
 
-/* LINKS */
+/* ----------------------------------------------------------
+   ESTILO GENERAL DE LOS ENLACES
+----------------------------------------------------------- */
 nav a {
   color: white;
   text-decoration: none;
@@ -38,7 +50,9 @@ nav a:hover {
   color: #A60842;
 }
 
-/* LOGOUT BUTTON */
+/* ----------------------------------------------------------
+   BOTÓN DE LOGOUT (excepto el botón hamburguesa)
+----------------------------------------------------------- */
 nav button:not(.nav-hamburger) {
   background: #A60842;
   color: white;
@@ -55,7 +69,9 @@ nav button:not(.nav-hamburger):hover {
   transform: translateY(-2px);
 }
 
-/* HAMBURGER BUTTON */
+/* ----------------------------------------------------------
+   BOTÓN HAMBURGUESA (solo visible en móvil)
+----------------------------------------------------------- */
 .nav-hamburger {
   display: none;
   background: none;
@@ -65,6 +81,7 @@ nav button:not(.nav-hamburger):hover {
   z-index: 17;
 }
 
+/* Icono hamburguesa compuesto por 3 líneas */
 .hamburger-icon {
   display: flex;
   flex-direction: column;
@@ -81,29 +98,38 @@ nav button:not(.nav-hamburger):hover {
   transform-origin: center;
 }
 
-/* Animate to X when open */
+/* ----------------------------------------------------------
+   ANIMACIÓN DEL ICONO HAMBURGUESA → X
+   Cuando el menú está abierto, las líneas se transforman.
+----------------------------------------------------------- */
 .hamburger-icon.open span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
+
 .hamburger-icon.open span:nth-child(2) {
   opacity: 0;
   transform: scaleX(0);
 }
+
 .hamburger-icon.open span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* MOBILE */
+/* ----------------------------------------------------------
+   MODO MÓVIL (pantallas pequeñas)
+----------------------------------------------------------- */
 @media (max-width: 600px) {
   nav {
     flex-wrap: wrap;
     padding: 16px 20px;
   }
 
+  /* Mostrar botón hamburguesa */
   .nav-hamburger {
     display: block;
   }
 
+  /* Menú oculto por defecto */
   .nav-right {
     display: none;
     flex-direction: column;
@@ -117,12 +143,14 @@ nav button:not(.nav-hamburger):hover {
     transition: max-height 0.3s ease, padding 0.3s ease;
   }
 
+  /* Menú desplegado */
   .nav-right.nav-open {
     display: flex;
     max-height: 400px;
     padding: 12px 0;
   }
 
+  /* Estilo de enlaces y botones dentro del menú móvil */
   .nav-right a,
   .nav-right button:not(.nav-hamburger) {
     width: 100%;
@@ -133,6 +161,7 @@ nav button:not(.nav-hamburger):hover {
     font-size: 1rem;
   }
 
+  /* Botón logout adaptado a móvil */
   .nav-right button:not(.nav-hamburger) {
     background: none;
     color: #A60842;

@@ -1,3 +1,8 @@
+/* ----------------------------------------------------------
+   TARJETA PRINCIPAL DE LA BICI
+   Contenedor general de cada tarjeta. Define el fondo, bordes,
+   animaciones de hover y estructura interna en columna.
+----------------------------------------------------------- */
 .bike-card {
   background: #0d0a2b;
   border-radius: 18px;
@@ -12,42 +17,52 @@
   border: 1px solid #1a164047;
 }
 
+/* Efecto al pasar el ratón: eleva la tarjeta y añade sombra */
 .bike-card:hover {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 15px 30px rgba(4, 0, 255, 0.076);
 }
 
-/* IMAGE */
+
+/* ----------------------------------------------------------
+   CONTENEDOR DE LA IMAGEN
+   Mantiene la imagen recortada, centrada y con bordes redondeados.
+----------------------------------------------------------- */
 .bike-image-wrapper {
   position: relative;
   width: 100%;
   height: 260px;
   overflow: hidden;
   background: #1a1640;
-    overflow: hidden;
-  border-radius: 18px ;
+  border-radius: 18px;
 }
 
+/* Imagen principal: se ajusta al contenedor y hace zoom en hover */
 .bike-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   transition: transform 0.3s ease;
-  z-index: 1; 
-   position: relative;
+  z-index: 1;
+  position: relative;
 }
 
-
+/* Zoom suave al pasar el ratón por la tarjeta */
 .bike-card:hover .bike-image {
   transform: scale(1.08);
 }
 
-/* INFO */
+
+/* ----------------------------------------------------------
+   INFORMACIÓN DE LA BICI
+   Contiene título, precio y otros datos.
+----------------------------------------------------------- */
 .bike-info {
   padding: 22px;
 }
 
+/* Título de la bicicleta */
 .bike-title {
   font-size: 1.4rem;
   font-weight: 800;
@@ -55,6 +70,7 @@
   color: white;
 }
 
+/* Precio destacado en color principal */
 .bike-price {
   color: #A60842;
   font-size: 1.3rem;
@@ -62,7 +78,11 @@
   margin-bottom: 16px;
 }
 
-/* STATUS BADGE */
+
+/* ----------------------------------------------------------
+   ETIQUETA DE ESTADO (Disponible / Vendida)
+   Se muestra sobre la imagen con estilo de badge.
+----------------------------------------------------------- */
 .status-badge {
   position: absolute;
   top: 12px;
@@ -74,27 +94,26 @@
   color: white;
   backdrop-filter: blur(4px);
   letter-spacing: 0.5px;
-  z-index: 5
+  z-index: 5;
 }
 
-/* AVAILABLE  */
+/* Estado: Disponible */
 .status-badge.available {
-    background: #722944;
+  background: #722944;
   color: white;
-   font-size: 0.8rem;
-  font-weight: 600;
 }
 
-/* SOLD  */
+/* Estado: Vendida */
 .status-badge.sold {
   background: rgba(151, 151, 151, 0.85);
-    color: #070338;
-       font-size: 0.8rem;
-  font-weight: 600;
+  color: #070338;
 }
 
 
-/* BUTTON */
+/* ----------------------------------------------------------
+   BOTÓN "VER MÁS"
+   Botón de acción dentro de la tarjeta.
+----------------------------------------------------------- */
 .btn-view {
   display: inline-block;
   padding: 10px 18px;
@@ -107,29 +126,16 @@
   font-size: 1rem;
 }
 
+/* Hover del botón */
 .btn-view:hover {
   background: #bb0d4d;
 }
 
-/* IMAGE WRAPPER */
-.bike-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 260px;
-  overflow: hidden;
-  background: #1a1640;
-  border-radius: 18px;
-}
 
-/* IMAGE */
-.bike-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.35s ease;
-}
-
-/* ARROWS */
+/* ----------------------------------------------------------
+   FLECHAS DE NAVEGACIÓN (para carrusel de imágenes)
+   Ocultas por defecto, visibles al hacer hover en desktop.
+----------------------------------------------------------- */
 .arrow {
   position: absolute;
   top: 50%;
@@ -137,36 +143,36 @@
   background: rgba(7, 3, 56, 0.6);
   border: 2px solid #a60842b4;
   color: white;
-  font-size: 1.6rem;        /* smaller font */
-  line-height: 1;          
+  font-size: 1.6rem;
+  line-height: 1;
   width: 38px;
   height: 38px;
   border-radius: 50%;
   cursor: pointer;
-  display: none;
-  align-items: center;      
-  justify-content: center;   
+  display: none; /* Se muestran solo en hover */
+  align-items: center;
+  justify-content: center;
   transition: 0.2s ease;
   z-index: 10;
 }
 
-
+/* Hover de las flechas */
 .arrow:hover {
   border-color: #A60842;
   background: #401e37af;
 }
 
+/* Flecha izquierda */
 .arrow.left {
   left: 10px;
 }
 
+/* Flecha derecha */
 .arrow.right {
   right: 10px;
 }
 
-/* SHOW ARROWS ON HOVER (desktop) */
+/* Mostrar flechas al pasar el ratón por la imagen */
 .bike-image-wrapper:hover .arrow {
   display: flex;
 }
-
-

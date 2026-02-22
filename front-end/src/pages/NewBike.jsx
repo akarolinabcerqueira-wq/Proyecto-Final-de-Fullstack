@@ -7,11 +7,16 @@ import Footer from "@/components/Footer";
 import toast from "react-hot-toast";
 
 const NewBike = () => {
+  // Token del usuario autenticado
   const { token } = useAuth();
+
+  // Navegación tras crear la bici
   const navigate = useNavigate();
 
+  // Estado de carga del formulario
   const [loading, setLoading] = useState(false);
 
+  // Crear nueva bicicleta
   const handleCreate = async (formData) => {
     try {
       setLoading(true);
@@ -20,6 +25,7 @@ const NewBike = () => {
 
       toast.success("Bicicleta creada correctamente");
 
+      // Redirigir a mis bicicletas
       navigate("/my-bikes");
     } catch (err) {
       toast.error(err.message);
@@ -32,6 +38,8 @@ const NewBike = () => {
     <div>
       <section className="bike-form-container">
         <h1 className="bike-form-title">Vender bicicleta</h1>
+
+        {/* Formulario reutilizable para crear una bici */}
         <BikeForm onSubmit={handleCreate} loading={loading} />
       </section>
 
