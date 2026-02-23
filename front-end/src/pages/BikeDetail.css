@@ -133,6 +133,8 @@ h1 {
   .detail-image {
     height: 240px;
   }
+ .detail-title {
+  font-size: 1.8rem ;}
 }
 
 /* --------------------------------------------------
