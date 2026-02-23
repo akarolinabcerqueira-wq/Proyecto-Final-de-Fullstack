@@ -1,11 +1,12 @@
 import dotenv from "dotenv";
-dotenv.config(); // <-- Vercel injects env vars automatically
+dotenv.config();
 
 import app from "./app.js";
 import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/user.routes.js";
+import bikeRoutes from "./routes/bike.routes.js";
 
-// Debug (optional)
+// Debug
 console.log("ENV TEST:", {
   cloud: process.env.CLOUDINARY_CLOUD_NAME,
   key: process.env.CLOUDINARY_API_KEY,
@@ -14,8 +15,9 @@ console.log("ENV TEST:", {
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/bikes", bikeRoutes);
 
-// Connect to DB
+// Connect DB
 connectDB();
 
-export default app; // <-- REQUIRED for Vercel
+export default app;
