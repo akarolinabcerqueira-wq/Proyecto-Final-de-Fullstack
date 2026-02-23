@@ -30,13 +30,14 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+
 }
 
 /* Título principal */
 .hero-title {
   font-size: 3.5rem;
   font-weight: 800;
-  margin-bottom: 10px;
+  margin: 10px;
   color: white;
 }
 
@@ -48,7 +49,7 @@
 .hero-subtitle {
   font-size: 1.2rem;
   color: #b8afd4;
-  margin-bottom: 30px;
+  margin: 30px;
 }
 
 /* Botones del hero */
