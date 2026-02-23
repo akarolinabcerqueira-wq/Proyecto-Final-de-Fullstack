@@ -82,7 +82,6 @@ const FilterBar = ({ onFilter }) => {
           </option>
         ))}
 
-        <option value="Other">Otra / No conocida</option>
       </select>
 
       {/* FILTRO: ESTADO (vendida / disponible) */}

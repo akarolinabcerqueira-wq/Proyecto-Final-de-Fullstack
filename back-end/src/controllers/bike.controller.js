@@ -93,7 +93,7 @@ export const updateBike = async (req, res) => {
         model: req.body.model,
         price: req.body.price,
         description: req.body.description,
-        sold: req.body.sold === "true",
+        sold: typeof req.body.sold === "boolean" ? req.body.sold : req.body.sold === "true",
         images: req.body.images || [],
       },
       { new: true }

@@ -266,7 +266,9 @@
   .image-gallery {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
-
+.modal{
+  width: 70%;
+}
   .modal-buttons {
     flex-direction: column;
   }
