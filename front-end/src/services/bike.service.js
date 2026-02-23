@@ -109,13 +109,14 @@ export const createBikeRequest = async (payload, token) => {
 };
 
 /* Actualizar una bicicleta existente */
-export const updateBikeRequest = async (id, formData, token) => {
+export const updateBikeRequest = async (id, payload, token) => {
   const response = await fetch(`${API_URL}/bikes/${id}`, {
     method: "PUT",
     headers: {
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: formData, // FormData → no se envía JSON
+    body: JSON.stringify(payload),
   });
 
   const data = await response.json();
@@ -126,3 +127,4 @@ export const updateBikeRequest = async (id, formData, token) => {
 
   return data;
 };
+
