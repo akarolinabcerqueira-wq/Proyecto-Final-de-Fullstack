@@ -3,9 +3,8 @@
 -------------------------------------------------- */
 .admin-container {
   min-height: calc(100vh - 70px);
-  background: white;
-  color: #14112f;
-  /* Texto visible sobre fondo claro */
+  background: #080620;
+  color: #e8e4f5;
 }
 
 .admin-content {
@@ -13,8 +12,7 @@
 }
 
 .admin-content h1 {
-  color: #A60842;
-  /* Color corporativo */
+  color: #e8527a;
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
 }
@@ -22,7 +20,7 @@
 .section-title {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
-  color: #A60842;
+  color: #e8527a;
 }
 
 @media (max-width: 600px) {
@@ -38,17 +36,17 @@
   display: flex;
   justify-content: center;
   gap: 2rem;
-  background: #14112f;
+  background: #0d0a2b;
   padding: 1rem 0;
-  border-bottom: 2px solid #A60842;
+  border-bottom: 1px solid rgba(166, 8, 66, 0.35);
 }
 
 .admin-tabs .tab {
-  color: white;
+  color: #b8afd4;
   text-decoration: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  transition: 0.2s ease;
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease;
   font-weight: 600;
 }
 
@@ -79,21 +77,26 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
-  border-radius: 8px;
+  border-radius: 20px;
   overflow: hidden;
+  border: 1px solid rgba(166, 8, 66, 0.15);
 }
 
 .admin-table th,
 .admin-table td {
   padding: 1rem;
-  border-bottom: 1px solid #2a2647;
-  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #e8e4f5;
 }
 
 .admin-table th {
   background: #0d0a2b;
   text-align: left;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #e8527a;
 }
 
 .admin-table tr {
@@ -101,7 +104,7 @@
 }
 
 .admin-table tr:hover {
-  background: #1f1a40;
+  background: #13104a;
 }
 
 /* Miniatura de imagen */
@@ -109,59 +112,91 @@
   width: 70px;
   height: 70px;
   object-fit: cover;
-  border-radius: 6px;
-  border: 2px solid #A60842;
+  border-radius: 10px;
+  border: 1px solid rgba(166, 8, 66, 0.35);
   display: block;
 }
 
 /* --------------------------------------------------
-   BOTONES
+   BOTONES — aligned to bc- design tokens
 -------------------------------------------------- */
-.edit-btn,
-.danger-btn,
-.confirm-delete,
-.cancel-delete {
-  background: #909090;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s ease;
-  color: white;
-  font-size: 1rem;
-}
 
-/* Botones principales */
-.edit-btn,
-.confirm-delete {
-  background: #A60842;
-  margin-right: 0.5rem;
-  display: inline-block;
+/* Edit — matches bc-btn-edit */
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #e8e4f5;
+  font-weight: 600;
+  font-size: 0.85rem;
   text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-right: 0.5rem;
 }
 
-.edit-btn:hover,
-.confirm-delete:hover {
-  background: #bb0d4d;
+.edit-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* Botón gris (acciones secundarias) */
+/* Danger — matches bc-btn-danger */
 .danger-btn {
-  background: #909090;
-  color: #1a1640;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(180, 30, 30, 0.15);
+  color: #f87171;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid rgba(180, 30, 30, 0.25);
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .danger-btn:hover {
-  background: #a9a9a9;
+  background: rgba(180, 30, 30, 0.3);
 }
 
-/* Botón cancelar */
+/* Confirm delete — matches bc-btn-toggle / save action */
+.confirm-delete {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #A60842;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.confirm-delete:hover {
+  background: #c40a4f;
+}
+
+/* Cancel — matches bc-btn-edit */
 .cancel-delete {
-  background: #444;
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #e8e4f5;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .cancel-delete:hover {
-  background: #666;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* --------------------------------------------------
@@ -178,13 +213,13 @@
 }
 
 .modal {
-  background: #14112f;
+  background: #0d0a2b;
   padding: 2rem;
-  border-radius: 10px;
-  border: 2px solid #A60842;
+  border-radius: 20px;
+  border: 1px solid rgba(166, 8, 66, 0.35);
   text-align: center;
   width: min(350px, 80%);
-  color: white;
+  color: #e8e4f5;
 }
 
 .modal-buttons {
@@ -213,8 +248,6 @@
    TABLA RESPONSIVE → TARJETAS EN MÓVIL
 -------------------------------------------------- */
 @media (max-width: 650px) {
-
-  /* Convertir tabla en bloques */
   .admin-table,
   .admin-table thead,
   .admin-table tbody,
@@ -231,9 +264,9 @@
   .admin-table tr {
     background: #0d0a2b;
     margin-bottom: 1rem;
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 1rem 0.8rem;
-    border: 2px solid #1b1738;
+    border: 1px solid rgba(166, 8, 66, 0.15);
   }
 
   .admin-table td {
@@ -243,14 +276,17 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    color: white;
+    color: #e8e4f5;
   }
 
-  /* Etiquetas de cada celda */
+  /* Data labels */
   .admin-table td::before {
     content: attr(data-label);
-    font-weight: 600;
-    color: #A60842;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #e8527a;
   }
 
   .admin-thumb {
@@ -258,7 +294,6 @@
     height: 80px;
   }
 
-  /* Acciones en móvil */
   .admin-table td[data-label="Acciones"] {
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -275,18 +310,16 @@
     text-align: center;
     margin: 0;
     min-width: 80px;
-
   }
 
-  /* Ajustes específicos para tablas de usuarios y bicis */
   .admin-table-users tr,
   .admin-table-bikes tr {
     display: block;
     background: #0d0a2b;
     margin-bottom: 1rem;
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 1rem 0.8rem;
-    border: 2px solid #1b1738;
+    border: 1px solid rgba(166, 8, 66, 0.15);
   }
 
   .admin-table-users td,
@@ -301,8 +334,11 @@
   .admin-table-users td::before,
   .admin-table-bikes td::before {
     content: attr(data-label);
-    font-weight: 600;
-    color: #A60842;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #e8527a;
   }
 
   .admin-table-bikes .admin-thumb {
